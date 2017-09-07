@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:05
-# Last modified: 2017-09-07 19:58
+# Last modified: 2017-09-07 21:11
 # Filename: settings.py
 # Description:
 """
@@ -33,7 +33,10 @@ SECRET_KEY = 'v_&4b1seyjht1+vl6c08)&7is*srv_0lqg4t^%0f71o19r5%yu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.2.169', '127.0.0.1']
+ALLOWED_HOSTS = [
+    '192.168.2.169',
+    '127.0.0.1',
+]
 
 
 # Application definition
