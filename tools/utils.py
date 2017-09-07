@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:13
-# Last modified: 2017-09-07 09:14
+# Last modified: 2017-09-07 22:04
 # Filename: utils.py
 # Description:
 from django.core.exceptions import PermissionDenied
@@ -16,7 +16,7 @@ from guardian.shortcuts import assign_perm, remove_perm
 def assign_perms(name, user_or_group, perms=None, obj=None):
     if perms is None:
         perms = ['add', 'change', 'delete', 'view']
-    perms = [perm+'_'+name for perm in perms]
+    perms = [perm + '_' + name for perm in perms]
     for perm in perms:
         assign_perm(perm, user_or_group, obj)
 
@@ -24,7 +24,7 @@ def assign_perms(name, user_or_group, perms=None, obj=None):
 def remove_perms(name, user_or_group, perms=None, obj=None):
     if perms is None:
         perms = ['add', 'change', 'delete', 'view']
-    perms = [perm+'_'+name for perm in perms]
+    perms = [perm + '_' + name for perm in perms]
     for perm in perms:
         remove_perm(perm, user_or_group, obj)
 
