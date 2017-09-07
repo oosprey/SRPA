@@ -1,0 +1,59 @@
+{% extends "bills/layout.html" %}
+{% load static %}
+
+{% block header_css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bills.css'%}">
+{% endblock %}
+
+{% block container %}
+<form method="POST" id="bills_sheet_form">
+    {{ formset.management_form }}
+    {% csrf_token %}
+    <div class="bills-form-div">
+        <div class="alert alert-info alert-dismissable bills-info" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <p>填写说明:</p>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">项目</div>
+            <div class="col-sm-2">数量</div>
+            <div class="col-sm-2">金额</div>
+            <div class="col-sm-2">详细说明</div>
+            <div class="col-sm-3">描述</div>
+            <div class="col-sm-1">删除</div>
+        </div>
+        <div id="data-forms">
+            {% for form in formset %}
+            <div class="row data-row">
+                {% for field in form %}
+                <div class="col-sm-2">
+                    {{field}}
+                    {% if field.errors %}
+                    <p class="text-danger">{{field.errors.as_text}}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <div class="col-sm-3">
+                    此处应有选项描述 此处应有选项描述 此处应有选项描述 此处应有选项描述 此处应有选项描述
+                </div>
+                <div class="col-sm-1">
+                    <a onclick="delete_bill_info('{{form.instance.uid}}')" class="danger-element glyphicon glyphicon-remove"></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <a href="{% url 'bills_sheet_list' %}" type="button" class="btn btn-info btn-sm">返回</a>
+            <button type="button" class="btn btn-success btn-sm" id="add-one-term">添加</button>
+            <button type="submit" class="btn btn-primary btn-sm">提交</button>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block footer_js %}
+{{ block.super }}
+<script type="text/javascript" src="{% static 'js/bills.js' %}"></script>
+{% include 'base/csrf_setup.html' %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base/layout.html" %}
+{% load static %}
+{% load filters %}
+
+{% block web_title %}
+{{block.super}}
+{% endblock %}
+
+{% block header_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block container %}
+<div class="title-div">
+    <h2 class="title">{{TITLE}}</h2>
+</div>
+<div class="login-form-div col-sm-12">
+    <h3>主页</h3>
+</div>
+{% endblock %}

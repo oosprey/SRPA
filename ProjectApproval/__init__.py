@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+# coding: UTF-8
+# Author: David
+# Email: youchen.du@gmail.com
+# Created: 2017-09-07 19:34
+# Last modified: 2017-09-07 19:55
+# Filename: __init__.py
+# Description:
+PROJECT_SUBMITTED = 0
+PROJECT_CANCELLED = 1
+PROJECT_APPROVED = 2
+PROJECT_EDITTING = 3
+PROJECT_TERMINATED = 4
+PROJECT_END_CONFIRMED = 5
+PROJECT_END_EDITTING = 6
+PROJECT_FINISHED = 7
+PROJECT_COMPLETED = 8
+PROJECT_STATUS = (
+    (PROJECT_SUBMITTED, '申请已提交'),
+    (PROJECT_CANCELLED, '申请已取消'),
+    (PROJECT_APPROVED, '活动进行中'),
+    (PROJECT_EDITTING, '申请修改中'),
+    (PROJECT_TERMINATED, '活动已终止'),
+    (PROJECT_END_CONFIRMED, '结项待审核'),
+    (PROJECT_END_EDITTING, '结项修改中'),
+    (PROJECT_FINISHED, '活动已完成'),
+    (PROJECT_COMPLETED, '活动已报销'),
+)
+
+
+ACTIVITY_RANGE_WORKSHOP = 0
+ACTIVITY_RANGE_SCHOOL = 1
+ACTIVITY_RANGES = (
+    (ACTIVITY_RANGE_WORKSHOP, '工坊内部'),
+    (ACTIVITY_RANGE_SCHOOL, '全校'),
+)

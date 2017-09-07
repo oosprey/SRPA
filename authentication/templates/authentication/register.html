@@ -1,0 +1,36 @@
+{% extends "base/layout.html"%}
+{% load static %}
+{% load filters %}
+
+{% block web_title %}
+{{block.super}} - 注册
+{% endblock %}
+
+{% block header_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block container%}
+<div class="title-div">
+    <h2 class="title">{{TITLE}}</h2>
+</div>
+<div class="container">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a onclick="load_register_form('student_register')" data-toggle="tab">学生</a></li>
+        <li><a onclick="load_register_form('social_register')" data-toggle="tab">校外人员</a></li>
+    </ul>
+    <div id="register_form">
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block footer_js %}
+{{ block.super }}
+<script type="text/javascript" src="{% static 'js/auth.js' %}"></script>
+<script id="form_init_load">
+    load_register_form('student_register');
+    $('#form_init_load').remove();
+</script>
+{% endblock %}

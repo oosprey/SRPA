@@ -1,0 +1,26 @@
+{% extends "base/layout.html"%}
+{% load static %}
+{% load filters %}
+
+{% block web_title %}
+{{block.super}} - {{ title }}
+{% endblock %}
+
+{% block header_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block container%}
+<div class="title-div">
+    <h2 class="title">{{ title }}</h2>
+</div>
+<div class="container">
+    {% include './info_form.html' %}
+</div>
+{% endblock %}
+
+{% block footer_js %}
+{{ block.super }}
+<script type="text/javascript" src="{% static 'js/auth.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "bills/layout.html" %}
+{% load static %}
+{% load filters %}
+{% block header_css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap-datetimepicker.min.css' %}"/>
+{% endblock %}
+{% block container %}
+{% include "bills/widgets/search_form.html" %}
+<div class="container" id="statistic_table">
+    {% include "bills/widgets/statistic_table.html" %}
+</div>
+{% endblock %}
+{% block footer_js %}
+{{ block.super }}
+<script type="text/javascript" src="{% static 'js/statistic.js' %}"></script>
+{% include 'base/csrf_setup.html' %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base/layout.html" %}
+{% block navigation %}
+{{block.super}}
+{% if user.user.level >= 9 %}
+<li><a href="{% url 'expense_admin:bills_sheet_list' %}">列表</a></li>
+<li><a href="{% url 'expense_admin:bills_sheet_statistic' %}">统计</a></li>
+{% else %}
+<li><a href="{% url 'bills_sheet_create' %}">新建</a></li>
+<li><a href="{% url 'bills_sheet_list' %}">列表</a></li>
+{% endif %}
+<li><a href="{% url 'logout' %}">注销</a></li>
+{% endblock %}

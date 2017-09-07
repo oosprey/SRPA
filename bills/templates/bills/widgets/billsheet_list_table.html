@@ -1,0 +1,64 @@
+<table class="table table-striped">
+    <tr>
+        <th>日期</th>
+        <th>用户</th>
+        <th>发票数量</th>
+        <th>总额</th>
+        <th>状态</th>
+        <th>操作</th>
+    </tr>
+    {% for sheet in object_list %}
+    <tr>
+        <td>{{sheet.created|date:'Y-m-d D H:i'}}</td>
+        <td>{{sheet.user.auth.first_name}}</td>
+        <td>{{sheet.count}}</td>
+        <td>{{sheet.amount}}</td>
+        <td>{{sheet.get_status_display}}</td>
+        <td>
+            {% if is_admin %}
+            {% if sheet.status == ESTATUS_SUBMIT or sheet.status == ESTATUS_AMEND %}
+            <a class="label label-success" href={% url 'expense_admin:bills_sheet_detail' sheet.uid %}>处理</a>
+            {% else %}
+            <a class="label label-info" href={% url 'expense_admin:bills_sheet_detail' sheet.uid %}>详情</a>
+            {% endif %}
+            {% else %}
+            <a class="label label-info" href={% url 'bills_sheet_detail' sheet.uid %}>详情</a>
+            {% if sheet.status == ESTATUS_SUBMIT or sheet.status == ESTATUS_AMEND %}
+            <a class="label label-success" href={% url 'bills_sheet_update' sheet.uid %}>修改</a>
+            <a class="label label-danger delete-sheet" sheet-uid="{{sheet.uid}}">撤销</a>
+            {% else %}
+            <label class="label label-warning">已处理，无法修改或撤销</label>
+            {% endif %}
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor%}
+</table>
+{% if is_paginated %}
+<div class="pagination">
+    <span class="page-links">
+        {% if is_admin %}
+            {% if page_obj.has_previous %}
+            <a href="{% url 'expense_admin:bills_sheet_list' %}?page={{page_obj.previous_page_number}}&{{args}}">上一页</a>
+            {% endif %}
+            <span class="page-current">
+                第 {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}页
+            </span>
+            {% if page_obj.has_next %}
+            <a href="{% url 'expense_admin:bills_sheet_list' %}?page={{page_obj.next_page_number}}&{{args}}">下一页</a>
+            {% endif %}
+        {% else %}
+            {% if page_obj.has_previous %}
+            <a href="{% url 'bills_sheet_list' %}?page={{page_obj.previous_page_number}}">上一页</a>
+            {% endif %}
+            <span class="page-current">
+                第 {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}页
+            </span>
+            {% if page_obj.has_next %}
+            <a href="{% url 'bills_sheet_list'%}?page={{page_obj.next_page_number}}">下一页</a>
+            {% endif %}
+        {% endif %}
+    </span>
+</div>
+{% endif %}
+

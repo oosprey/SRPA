@@ -1,0 +1,60 @@
+{% extends "base/layout.html"%}
+{% load static %}
+{% load filters %}
+
+{% block web_title %}
+{{block.super}} - {{ title }}
+{% endblock %}
+
+{% block header_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block container%}
+<div class="title-div">
+    <h2 class="title">{{ title }}</h2>
+</div>
+<div class="container">
+    <table class="table table-hover">
+        <tr>
+            <th class="col-sm-4"></th>
+            <th class="col-sm-8"></th>
+        </tr>
+        <tr>
+            <td>姓名</td>
+            <td>{{object.user.first_name}}</td>
+        </tr>
+        <tr>
+            <td>联系方式</td>
+            <td>{{object.phone}}</td>
+        </tr>
+        <tr>
+            <td>认证身份</td>
+            <td>{{object.get_identity_display}}</td>
+        </tr>
+        <tr>
+            <td>身份证号</td>
+            <td>{{object.social_info.citizen_id}}</td>
+        </tr>
+        <tr>
+            <td>职务</td>
+            <td>{{object.social_info.title}}</td>
+        </tr>
+        <tr>
+            <td>受教育程度</td>
+            <td>{{object.social_info.education}}</td>
+        </tr>
+        <tr>
+            <td>政治面貌</td>
+            <td>{{object.social_info.get_political_status_display}}</td>
+        </tr>
+    </table>
+    <a class="btn btn-primary" href="{% url 'update_detail_info' object.uid %}">修改</a>
+</div>
+{% endblock %}
+
+{% block footer_js %}
+{{ block.super }}
+<script type="text/javascript" src="{% static 'js/auth.js' %}"></script>
+{% endblock %}

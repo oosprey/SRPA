@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+# coding: UTF-8
+# Author: David
+# Email: youchen.du@gmail.com
+# Created: 2017-09-07 19:24
+# Last modified: 2017-09-07 19:38
+# Filename: __init__.py
+# Description:
+RESERVATION_SUBMITTED = 0
+RESERVATION_CANCELLED = 1
+RESERVATION_APPROVED = 2
+RESERVATION_EDITTING = 3
+RESERVATION_TERMINATED = 4
+RESERVATION_CONFIRMED = 5
+RESERVATION_FINISHED = 6
+RESERVATION_STATUS = (
+    (RESERVATION_SUBMITTED, '预约已提交'),
+    (RESERVATION_CANCELLED, '预约已取消'),
+    (RESERVATION_APPROVED, '预约已批准'),
+    (RESERVATION_EDITTING, '预约修改中'),
+    (RESERVATION_TERMINATED, '预约已终止'),
+    (RESERVATION_CONFIRMED, '预约已确认'),
+    (RESERVATION_FINISHED, '预约已完成'),
+)

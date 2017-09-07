@@ -1,0 +1,46 @@
+{% extends "base/layout.html" %}
+{% load static %}
+{% load filters %}
+
+{% block web_title %}
+{{block.super}} - 登录
+{% endblock %}
+
+{% block header_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block container %}
+<div class="title-div">
+    <h2 class="title">{{TITLE}}</h2>
+</div>
+<div class="login-form-div col-sm-12">
+    <form class="form-horizontal" method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="col-sm-2 col-sm-offset-3">
+                <label class="control-label" for="id_username">用户名:</label>
+            </div>
+            <div class="col-sm-4">
+                {{form.username|addcls:'form-control'}}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 col-sm-offset-3">
+                <label class="control-label" for="id_password">{{form.password.label}}:</label>
+            </div>
+            <div class="col-sm-4">
+                {{form.password|addcls:'form-control'}}
+            </div>
+        </div>
+        {% if form.errors %}
+        <p class="text-danger">用户名与密码不匹配，请重试</p>
+        {% endif %}
+        <div>
+            <button type="submit" class="btn btn-primary btn-md">登录</button>
+            <a href="{% url 'register' %}" class="btn btn-primary btn-md">注册</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

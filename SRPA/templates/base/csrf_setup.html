@@ -1,0 +1,1 @@
+<script id="csrf_setup">$.ajaxSetup({beforeSend: function(xhr, settings){xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');}});$("#csrf_setup").remove();</script>

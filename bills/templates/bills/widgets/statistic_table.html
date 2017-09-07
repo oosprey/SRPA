@@ -1,0 +1,16 @@
+<table class="table table-striped">
+    <tr>
+        <th class="col-sm-2">项目</th>
+        <th class="col-sm-3">单据数</th>
+        <th class="col-sm-3">总额</th>
+        <th class="col-sm-4">描述</th>
+    </tr>
+    {% for key, val_dict in stats %}
+    <tr>
+        <td class="col-sm-2">{{val_dict.display}}</td>
+        <td class="col-sm-3">{{val_dict.count}}</td>
+        <td class="col-sm-3">{{val_dict.amount}}</td>
+        <td class="col-sm-4">{{val_dict.desc}}</td>
+    <tr>
+    {% endfor%}
+</table>
