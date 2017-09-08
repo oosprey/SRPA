@@ -1,9 +1,9 @@
-function load_register_form(type)
+function load_auth_form(type)
 {
     $.ajax({
-        url: '/accounts/load_register_form',
+        url: '/accounts/load_auth_form',
         type: 'GET', 
-        data: {'register_type': type},
+        data: {'form_type': type},
         success: load_form_callback,
     });
 }

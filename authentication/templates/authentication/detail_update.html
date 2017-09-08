@@ -12,11 +12,14 @@
 {% endblock %}
 
 {% block container%}
-<div class="title-div">
-    <h2 class="title">{{ title }}</h2>
-</div>
-<div class="container">
-    {% include './info_form.html' %}
+
+<div class="col-sm-4 col-sm-offset-4 text-center srpa-background">
+    <div class="col-sm-12">
+        <h2>个人信息修改</h2>
+    </div>
+    <div class="col-sm-12">
+        {% include './info_form.html' %}
+    </div>
 </div>
 {% endblock %}
 

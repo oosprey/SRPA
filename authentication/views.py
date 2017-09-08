@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:10
-# Last modified: 2017-09-07 18:19
+# Last modified: 2017-09-08 11:28
 # Filename: views.py
 # Description:
 from django.views.generic import CreateView, DetailView
@@ -24,7 +24,7 @@ from .models import SocialInfo, StudentInfo
 from .utils import get_detail_info_or_404
 
 
-class IndexView(TemplateView):
+class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'authentication/index.html'
 
 
@@ -57,7 +57,8 @@ class RegisterView(CreateView):
     form_class = StudentRegisterForm
     success_url = reverse_lazy('index')
     identity = USER_IDENTITY_UNSET
-    register_url = ''
+    form_post_url = ''
+    back_url = 'login'
 
     def form_valid(self, form):
         username = form.cleaned_data['username']
@@ -66,8 +67,7 @@ class RegisterView(CreateView):
         user = User.objects.create_user(
             username=username,
             password=password,
-            first_name=first_name,
-            is_active=False)
+            first_name=first_name)
         form.instance.user = user
         form.instance.identity = self.identity
         login(self.request, user,
@@ -78,32 +78,35 @@ class RegisterView(CreateView):
         return super(RegisterView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        kwargs['register_url'] = self.register_url
+        kwargs['form_post_url'] = self.form_post_url
+        kwargs['back_url'] = self.back_url
         return super(RegisterView, self).get_context_data(**kwargs)
 
 
-class RegisterRedirectView(RedirectView):
+class AuthFormLoadView(RedirectView):
     def get(self, request, *args, **kwargs):
-        register_type = request.GET.get('register_type', None)
+        register_type = request.GET.get('form_type', None)
+        if register_type is None:
+            raise Http404()
         try:
-            self.url = reverse(register_type or 'student_register')
+            self.url = reverse(register_type)
         except NoReverseMatch:
             raise Http404()
-        return super(RegisterRedirectView, self).get(request, *args, **kwargs)
+        return super(AuthFormLoadView, self).get(request, *args, **kwargs)
 
 
 class StudentRegisterView(RegisterView):
     form_class = StudentRegisterForm
     identity = USER_IDENTITY_STUDENT
     template_name = 'authentication/info_form.html'
-    register_url = reverse_lazy('student_register')
+    form_post_url = reverse_lazy('student_register')
 
 
 class SocialRegisterView(RegisterView):
     form_class = SocialRegisterForm
     identity = USER_IDENTITY_SOCIAL
     template_name = 'authentication/info_form.html'
-    register_url = reverse_lazy('social_register')
+    form_post_url = reverse_lazy('social_register')
 
 
 class InfoMixin(object):
@@ -172,9 +175,11 @@ class DetailInfoRedirectView(LoginRequiredMixin, RedirectView):
 class DetailInfoUpdateView(InfoMixin, LoginRequiredMixin, UpdateView):
     template_name = 'authentication/detail_update.html'
     success_url = reverse_lazy('detail_info')
+    back_url = 'detail_info'
 
     def get_context_data(self, **kwargs):
         kwargs['title'] = '个人信息修改'
+        kwargs['back_url'] = self.back_url
         return super(DetailInfoUpdateView, self).get_context_data(**kwargs)
 
     # TODO: Detail update auth check

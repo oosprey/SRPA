@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:10
-# Last modified: 2017-09-07 18:19
+# Last modified: 2017-09-08 10:13
 # Filename: urls.py
 # Description:
 from django.conf.urls import url
@@ -19,8 +19,8 @@ urlpatterns = [
         name='logout'),
     url('^accounts/register', views.RegisterView.as_view(),
         name='register'),
-    url('^accounts/load_register_form', views.RegisterRedirectView.as_view(),
-        name='load_register_form'),
+    url('^accounts/load_auth_form', views.AuthFormLoadView.as_view(),
+        name='load_auth_form'),
     url('^accounts/student_register', views.StudentRegisterView.as_view(),
         name='student_register'),
     url('^accounts/social_register', views.SocialRegisterView.as_view(),

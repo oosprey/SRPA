@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:05
-# Last modified: 2017-09-07 22:03
+# Last modified: 2017-09-08 09:06
 # Filename: settings.py
 # Description:
 """
@@ -145,4 +145,4 @@ LOGIN_URL = '/accounts/login'
 
 
 # Context variables related to SRPA
-TITLE = '创新创业学院场地预约与活动审批系统'
+TITLE = '场地预约与活动审批系统'
