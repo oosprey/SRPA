@@ -1,4 +1,6 @@
-# SRPA说明
+# Site Reservation and Project Approval
+
+[![Build Status](https://travis-ci.org/Time1ess/SRPA.svg?branch=master)](https://travis-ci.org/Time1ess/SRPA)
 
 ## 基础部分
 1. 每个用户对应一种身份:超级管理员、管理员、教师、学生、社会人员
