@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:09
-# Last modified: 2017-09-07 17:36
+# Last modified: 2017-09-08 21:20
 # Filename: admin.py
 # Description:
 from django.contrib import admin

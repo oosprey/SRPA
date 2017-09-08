@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 19:21
-# Last modified: 2017-09-07 19:57
+# Last modified: 2017-09-08 21:26
 # Filename: models.py
 # Description:
 from uuid import uuid4
@@ -35,3 +35,4 @@ class Reservation(models.Model):
     class Meta:
         verbose_name = '活动场地预约'
         verbose_name_plural = '活动场地预约'
+        default_permissions = ('add', 'delete', 'update', 'view')
