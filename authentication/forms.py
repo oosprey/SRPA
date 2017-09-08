@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:09
-# Last modified: 2017-09-08 16:30
+# Last modified: 2017-09-08 17:22
 # Filename: forms.py
 # Description:
 from django import forms
@@ -11,18 +11,13 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from captcha.fields import CaptchaField
 
 from .models import UserInfo, StudentInfo, SocialInfo
+from const.models import CaptchaField
 
 
 class LoginForm(AuthenticationForm):
     captcha = CaptchaField()
-
-    def __init__(self, *args, **kwargs):
-        super(LoginForm, self).__init__(*args, **kwargs)
-        fields = dict(self.fields)
-        fields['captcha'].label = '验证码'
 
 
 class RegisterForm(ModelForm):
@@ -49,13 +44,8 @@ class RegisterForm(ModelForm):
         fields = ['username', 'password', 'confirm_password',
                   'name', 'phone', 'captcha']
 
-    def __init__(self, *args, **kwargs):
-        super(RegisterForm, self).__init__(*args, **kwargs)
-        fields = dict(self.fields)
-        fields['captcha'].label = '验证码'
-
     def clean(self):
-        cleaned_data = super().clean()
+        cleaned_data = super(RegisterForm, self).clean()
         errors = {}
         username = cleaned_data.get('username')
         try:

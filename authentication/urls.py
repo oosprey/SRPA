@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:10
-# Last modified: 2017-09-08 16:21
+# Last modified: 2017-09-08 17:18
 # Filename: urls.py
 # Description:
 from django.conf.urls import url
@@ -14,8 +14,10 @@ from . import views
 
 urlpatterns = [
     url('^$', views.IndexView.as_view(), name='index'),
+    url('^captcha/refresh', views.CaptchaRefresh.as_view(),
+        name='captcha_refresh'),
     url('^accounts/login', views.LoginView.as_view(), name='login'),
-    url('^accounts/logout', auth_views.LogoutView.as_view(next_page='login'),
+    url('^accounts/logout', auth_views.LogoutView.as_view(next_page='index'),
         name='logout'),
     url('^accounts/register', views.RegisterView.as_view(),
         name='register'),

@@ -3,11 +3,13 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 18:34
-# Last modified: 2017-09-07 20:01
+# Last modified: 2017-09-08 17:22
 # Filename: models.py
 # Description:
 from uuid import uuid4
+
 from django.db import models
+from captcha.fields import CaptchaField as _CaptchaField
 
 
 class Site(models.Model):
@@ -24,3 +26,9 @@ class Workshop(models.Model):
 
     def __str__(self):
         return self.desc
+
+
+class CaptchaField(_CaptchaField):
+    def __init__(self, *args, **kwargs):
+        super(CaptchaField, self).__init__(*args, **kwargs)
+        self.label = '验证码'

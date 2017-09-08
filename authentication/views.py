@@ -3,20 +3,24 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:10
-# Last modified: 2017-09-08 15:50
+# Last modified: 2017-09-08 17:18
 # Filename: views.py
 # Description:
-from django.views.generic import CreateView, DetailView
+import json
+
+from django.views.generic import CreateView, DetailView, View
 from django.views.generic import UpdateView, RedirectView, TemplateView
 from django.contrib.auth.views import LoginView as _LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import login
 from django.utils.http import is_safe_url
-from django.http import Http404
+from django.http import Http404, HttpResponse, HttpResponseBadRequest
 from django.urls import NoReverseMatch
+
+from captcha.models import CaptchaStore
+from captcha.helpers import captcha_image_url
 
 from . import USER_IDENTITY_STUDENT, USER_IDENTITY_SOCIAL, USER_IDENTITY_UNSET
 from .forms import StudentRegisterForm, SocialRegisterForm, LoginForm
@@ -26,6 +30,17 @@ from .utils import get_detail_info_or_404
 
 class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'authentication/index.html'
+
+
+class CaptchaRefresh(View):
+    def get(self, request, *args, **kwargs):
+        if not request.is_ajax():
+            return HttpResponseBadRequest()
+        response = {}
+        response['key'] = CaptchaStore.generate_key()
+        response['img'] = captcha_image_url(response['key'])
+        return HttpResponse(json.dumps(response),
+                            content_type='application/json')
 
 
 class LoginView(_LoginView):
