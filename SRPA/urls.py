@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:08
-# Last modified: 2017-09-07 17:37
+# Last modified: 2017-09-08 12:06
 # Filename: urls.py
 # Description:
 """SRPA URL Configuration
@@ -26,6 +26,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^', include('authentication.urls')),
+    url(r'^captcha/', include('captcha.urls')),
     url(r'^admin/', admin.site.urls),
     # url(r'bills/', include('bills.urls')),
 ]

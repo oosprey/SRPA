@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 17:38
-# Last modified: 2017-09-07 17:40
+# Last modified: 2017-09-08 16:21
 # Filename: utils.py
 # Description:
 from django.http import Http404

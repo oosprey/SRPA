@@ -3,15 +3,26 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:09
-# Last modified: 2017-09-07 17:36
+# Last modified: 2017-09-08 16:30
 # Filename: forms.py
 # Description:
 from django import forms
 from django.forms import ModelForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
+from captcha.fields import CaptchaField
 
 from .models import UserInfo, StudentInfo, SocialInfo
+
+
+class LoginForm(AuthenticationForm):
+    captcha = CaptchaField()
+
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        fields = dict(self.fields)
+        fields['captcha'].label = '验证码'
 
 
 class RegisterForm(ModelForm):
@@ -31,11 +42,17 @@ class RegisterForm(ModelForm):
         widget=forms.PasswordInput(),
         min_length=1,
         max_length=20)
+    captcha = CaptchaField()
 
     class Meta:
         model = UserInfo
         fields = ['username', 'password', 'confirm_password',
-                  'name', 'phone']
+                  'name', 'phone', 'captcha']
+
+    def __init__(self, *args, **kwargs):
+        super(RegisterForm, self).__init__(*args, **kwargs)
+        fields = dict(self.fields)
+        fields['captcha'].label = '验证码'
 
     def clean(self):
         cleaned_data = super().clean()
@@ -60,7 +77,7 @@ class StudentRegisterForm(RegisterForm):
     class Meta:
         model = StudentInfo
         fields = ['username', 'password', 'confirm_password',
-                  'name', 'phone', 'student_id', 'institute']
+                  'name', 'phone', 'student_id', 'institute', 'captcha']
 
 
 class SocialRegisterForm(RegisterForm):
@@ -68,4 +85,4 @@ class SocialRegisterForm(RegisterForm):
         model = SocialInfo
         fields = ['username', 'password', 'confirm_password',
                   'name', 'phone', 'citizen_id', 'title', 'education',
-                  'political_status']
+                  'political_status', 'captcha']

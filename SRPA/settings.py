@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:05
-# Last modified: 2017-09-08 09:06
+# Last modified: 2017-09-08 16:32
 # Filename: settings.py
 # Description:
 """
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'guardian',
+    'captcha',
     'tools',
     'const',
     'authentication',
@@ -77,7 +78,7 @@ ROOT_URLCONF = 'SRPA.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'srpa', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'SRPA', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,6 +143,12 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_URL = '/accounts/login'
+
+# Captcha settings
+CAPTCHA_CHALLENGE_FUNCT = 'authentication.captchas.random_num_challenge'
+CAPTCHA_LETTER_ROTATION = (-10, 10)
+CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_dots',)
+CAPTCHA_TIMEOUT = 1
 
 
 # Context variables related to SRPA

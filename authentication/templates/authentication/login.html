@@ -7,34 +7,12 @@
 {% endblock %}
 
 {% block container %}
-<div class="col-sm-4 col-sm-offset-4 text-center srpa-background">
+<div class="col-lg-4 col-lg-offset-4 col-xs-10 col-xs-offset-1 srpa-background">
     <div class="col-sm-6 col-sm-offset-3">
         <h2>{{TITLE}}登录</h2>
     </div>
-    <div class="col-sm-12">
-        <form class="form-horizontal" method="POST" action="{% url 'login' %}">
-            {% csrf_token %}
-            <div class="form-group">
-                <div class="col-sm-6 col-sm-offset-3 input-group">
-                    <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                    {{form.username|addcls:'form-control'}}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-6 col-sm-offset-3 input-group">
-                    <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                    {{form.password|addcls:'form-control'}}
-                </div>
-            </div>
-            {% if form.errors %}
-            <p class="text-danger">用户名与密码不匹配，请重试</p>
-            {% endif %}
-            <div class="form-group">
-                <div class="col-sm-6 col-sm-offset-3">
-                    <button type="submit" class="btn btn-info btn-lg btn-block">登录</button>
-                </div>
-            </div>
-        </form>
+    <div id="form">
+        {% include './login_form.html' %}
     </div>
 </div>
 </div>

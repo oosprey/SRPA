@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:08
-# Last modified: 2017-09-07 20:02
+# Last modified: 2017-09-08 15:45
 # Filename: __init__.py
 # Description:
 USER_IDENTITY_NOT_LOGIN = -2

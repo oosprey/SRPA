@@ -12,23 +12,18 @@
 {% endblock %}
 
 {% block container %}
-<div class="col-sm-4 col-sm-offset-4 text-center srpa-background">
+<div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 srpa-background">
     <h2>{{TITLE}}注册</h2>
-    <div class="col-sm-12">
-        <ul class="nav nav-tabs" role="tablist">
-            <li class="white active"><a type="button" class="btn" onclick="load_auth_form('student_register')" data-toggle="tab">学生</a></li>
-            <li class="white"><a type="button" class="btn" onclick="load_auth_form('social_register')" data-toggle="tab">校外人员</a></li>
-        </ul>
-        <div id="register_form">
-        </div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="white{% if identity == USER_IDENTITY_STUDENT %} active{% endif %}"><a type="button" class="btn" onclick="load_auth_form('student_register')" data-toggle="tab">学生</a></li>
+        <li class="white{% if identity == USER_IDENTITY_SOCIAL %} active{% endif %}"><a type="button" class="btn" onclick="load_auth_form('social_register')" data-toggle="tab">校外人员</a></li>
+    </ul>
+    <div id="form">
+        {% include './info_form.html' %}
     </div>
 </div>
 {% endblock %}
 
 {% block footer_js %}
 {{block.super}}
-<script id="form_init_load">
-load_auth_form('student_register');
-$('#form_init_load').remove();
-</script>
 {% endblock %}

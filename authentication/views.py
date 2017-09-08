@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:10
-# Last modified: 2017-09-08 11:28
+# Last modified: 2017-09-08 15:50
 # Filename: views.py
 # Description:
 from django.views.generic import CreateView, DetailView
@@ -19,7 +19,7 @@ from django.http import Http404
 from django.urls import NoReverseMatch
 
 from . import USER_IDENTITY_STUDENT, USER_IDENTITY_SOCIAL, USER_IDENTITY_UNSET
-from .forms import StudentRegisterForm, SocialRegisterForm
+from .forms import StudentRegisterForm, SocialRegisterForm, LoginForm
 from .models import SocialInfo, StudentInfo
 from .utils import get_detail_info_or_404
 
@@ -31,6 +31,7 @@ class IndexView(LoginRequiredMixin, TemplateView):
 class LoginView(_LoginView):
     template_name = 'authentication/login.html'
     redirect_authenticated_user = True
+    form_class = LoginForm
 
     def get_success_url(self):
         """Ensure the user-originating redirection URL is safe."""
@@ -56,8 +57,8 @@ class RegisterView(CreateView):
     template_name = 'authentication/register.html'
     form_class = StudentRegisterForm
     success_url = reverse_lazy('index')
-    identity = USER_IDENTITY_UNSET
-    form_post_url = ''
+    identity = USER_IDENTITY_STUDENT
+    form_post_url = reverse_lazy('student_register')
     back_url = 'login'
 
     def form_valid(self, form):
@@ -80,7 +81,12 @@ class RegisterView(CreateView):
     def get_context_data(self, **kwargs):
         kwargs['form_post_url'] = self.form_post_url
         kwargs['back_url'] = self.back_url
+        kwargs['identity'] = self.identity
         return super(RegisterView, self).get_context_data(**kwargs)
+
+    def form_invalid(self, form):
+        self.template_name = RegisterView.template_name
+        return super(RegisterView, self).form_invalid(form)
 
 
 class AuthFormLoadView(RedirectView):
