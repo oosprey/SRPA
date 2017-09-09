@@ -2,6 +2,9 @@ language: python
 
 dist: trusty
 
+notifications:
+    email: false
+
 matrix:
     include:
         - env: LINT_CHECK
