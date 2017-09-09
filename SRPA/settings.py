@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:05
-# Last modified: 2017-09-09 10:08
+# Last modified: 2017-09-09 18:25
 # Filename: settings.py
 # Description:
 """
@@ -107,7 +107,7 @@ DATABASES = {
         'NAME': 'SRPA',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
+        'HOST': '192.168.2.167',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',
