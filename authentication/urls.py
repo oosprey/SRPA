@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:10
-# Last modified: 2017-09-08 21:56
+# Last modified: 2017-09-09 09:01
 # Filename: urls.py
 # Description:
 from django.conf.urls import url, include
@@ -41,14 +41,13 @@ register_patterns = [
 ]
 
 urlpatterns = [
-    url('^$', views.IndexView.as_view(), name='index'),
     url('^captcha/refresh/', views.CaptchaRefresh.as_view(),
         name='captcha_refresh'),
-    url('^user/login/', auth_views.LoginView.as_view(
+    url('^login/', auth_views.LoginView.as_view(
         template_name='authentication/login.html',
         form_class=LoginForm), name='login'),
-    url('^user/logout/', auth_views.LogoutView.as_view(next_page='index'),
+    url('^logout/', auth_views.LogoutView.as_view(next_page='index'),
         name='logout'),
-    url('^user/register/', include(register_patterns, namespace='register')),
-    url('^user/info/', include(info_patterns, namespace='info')),
+    url('^register/', include(register_patterns, namespace='register')),
+    url('^info/', include(info_patterns, namespace='info')),
 ]

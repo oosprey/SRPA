@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:05
-# Last modified: 2017-09-08 22:03
+# Last modified: 2017-09-09 10:06
 # Filename: settings.py
 # Description:
 """
@@ -86,6 +86,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'SRPA.context_processors.expose_settings',
@@ -144,7 +145,13 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-LOGIN_URL = reverse_lazy('login')
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+LOGIN_URL = reverse_lazy('auth:login')
 LOGIN_REDIRECT_URL = reverse_lazy('index')
 
 # Captcha settings

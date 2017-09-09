@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:08
-# Last modified: 2017-09-08 21:53
+# Last modified: 2017-09-09 09:17
 # Filename: urls.py
 # Description:
 """SRPA URL Configuration
@@ -24,9 +24,15 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from authentication import views
+
 urlpatterns = [
+    url('^$', views.IndexView.as_view(), name='index'),
     url(r'^admin/', admin.site.urls),
     url(r'^captcha/', include('captcha.urls')),
-    url(r'^', include('authentication.urls')),
-    # url(r'bills/', include('bills.urls')),
+    url(r'^user/', include('authentication.urls', namespace='auth')),
+    url(r'^reservation/', include('SiteReservation.urls',
+        namespace='reservation')),
+    url(r'^project/', include('ProjectApproval.urls',
+        namespace='project')),
 ]

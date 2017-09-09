@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-08 20:06
-# Last modified: 2017-09-08 22:05
+# Last modified: 2017-09-09 08:59
 # Filename: info_update.py
 # Description:
 from django.views.generic import UpdateView
@@ -41,7 +41,7 @@ class StudentInfoUpdate(InfoUpdateBase):
 
     model = StudentInfo
     fields = ['student_id', 'institute']
-    success_url = 'info:student'
+    success_url = 'auth:info:student'
     permission_required = 'update_studentinfo'
 
 
@@ -53,5 +53,5 @@ class SocialInfoUpdate(InfoUpdateBase):
     model = SocialInfo
     fields = ['citizen_id', 'title', 'education',
               'political_status']
-    success_url = 'info:social'
+    success_url = 'auth:info:social'
     permission_required = 'update_socialinfo'

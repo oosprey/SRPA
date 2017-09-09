@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 19:33
-# Last modified: 2017-09-08 21:26
+# Last modified: 2017-09-09 10:06
 # Filename: models.py
 # Description:
 from uuid import uuid4
@@ -14,6 +14,8 @@ from const.models import Workshop
 from authentication.models import TeacherInfo
 from . import PROJECT_STATUS, PROJECT_SUBMITTED
 from . import ACTIVITY_RANGES, ACTIVITY_RANGE_WORKSHOP
+
+from .utils import get_user_project_attachments_path
 
 
 class Project(models.Model):
@@ -43,8 +45,9 @@ class Project(models.Model):
     comment = models.TextField(verbose_name='备注')
     instructor_comment = models.TextField(verbose_name='指导教师意见')
     institute_comment = models.TextField(verbose_name='学院意见')
+    attachment = models.FileField(upload_to=get_user_project_attachments_path)
 
     class Meta:
-        verbose_name = '活动场地预约'
-        verbose_name_plural = '活动场地预约'
+        verbose_name = '活动项目'
+        verbose_name_plural = '活动项目'
         default_permissions = ('add', 'delete', 'update', 'view')

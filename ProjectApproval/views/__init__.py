@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+# coding: UTF-8
+# Author: David
+# Email: youchen.du@gmail.com
+# Created: 2017-09-09 09:20
+# Last modified: 2017-09-09 09:39
+# Filename: __init__.py
+# Description:
+from .ordinary import ProjectList, ProjectAdd, ProjectUpdate
+from .ordinary import ProjectRedirect, ProjectDetail
+from .admin import AdminProjectList, AdminProjectUpdate, AdminProjectDetail
+
+
+__all__ = [
+    'ProjectRedirect', 'ProjectDetail', 'AdminProjectDetail',
+    'ProjectList', 'ProjectAdd', 'ProjectUpdate',
+    'AdminProjectList', 'AdminProjectUpdate',
+]

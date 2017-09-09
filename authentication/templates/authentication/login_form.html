@@ -1,7 +1,7 @@
 {% load static %}
 {% load filters %}
 <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-    <form class="form-horizontal" method="POST" action="{% url 'login' %}">
+    <form class="form-horizontal" method="POST" action="{% url 'auth:login' %}">
         {% csrf_token %}
         <div class="form-group">
             <div class="input-group">

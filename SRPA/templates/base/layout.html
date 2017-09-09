@@ -38,17 +38,17 @@
                             <ul class="dropdown-menu">
                                 <li>
                                     {% if request.user.user_info.identity == USER_IDENTITY_STUDENT %}
-                                    <a href="{% url 'info:student' request.user.user_info.uid %}">个人信息</a>
+                                    <a href="{% url 'auth:info:student' request.user.user_info.uid %}">个人信息</a>
                                     {% elif request.user.user_info.identity == USER_IDENTITY_SOCIAL %}
-                                    <a href="{% url 'info:social' request.user.user_info.uid %}">个人信息</a>
+                                    <a href="{% url 'auth:info:social' request.user.user_info.uid %}">个人信息</a>
                                     {% endif %}
                                 </li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="{% url 'logout' %}">退出登录</a></li>
+                                <li><a href="{% url 'auth:logout' %}">退出登录</a></li>
                             </ul>
                         </li>
                         {% else %}
-                        <li><a href="{% url 'register:index' %}">注册</a></li>
+                        <li><a href="{% url 'auth:register:index' %}">注册</a></li>
                         {% endif %}
                     </ul>
                 </div><!-- /.navbar-collapse -->

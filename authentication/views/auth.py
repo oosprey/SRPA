@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-08 20:07
-# Last modified: 2017-09-08 22:10
+# Last modified: 2017-09-09 09:01
 # Filename: auth.py
 # Description:
 import json
@@ -58,8 +58,7 @@ class RegisterView(CreateView):
     form_class = StudentRegisterForm
     success_url = reverse_lazy('index')
     identity = USER_IDENTITY_STUDENT
-    form_post_url = reverse_lazy('register:student')
-    back_url = 'login'
+    form_post_url = reverse_lazy('auth:register:student')
 
     def form_valid(self, form):
         username = form.cleaned_data['username']
@@ -79,7 +78,7 @@ class RegisterView(CreateView):
 
     def get_context_data(self, **kwargs):
         kwargs['form_post_url'] = self.form_post_url
-        kwargs['back_url'] = self.back_url
+        kwargs['back_url'] = self.success_url
         kwargs['identity'] = self.identity
         return super(RegisterView, self).get_context_data(**kwargs)
 
@@ -116,7 +115,7 @@ class StudentRegisterView(RegisterView):
     identity = USER_IDENTITY_STUDENT
     info_name = 'studentinfo'
     template_name = 'authentication/info_form.html'
-    form_post_url = reverse_lazy('register:student')
+    form_post_url = reverse_lazy('auth:register:student')
 
 
 class SocialRegisterView(RegisterView):
@@ -127,4 +126,4 @@ class SocialRegisterView(RegisterView):
     identity = USER_IDENTITY_SOCIAL
     info_name = 'socialinfo'
     template_name = 'authentication/info_form.html'
-    form_post_url = reverse_lazy('register:social')
+    form_post_url = reverse_lazy('auth:register:social')
