@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:05
-# Last modified: 2017-09-09 10:06
+# Last modified: 2017-09-09 10:08
 # Filename: settings.py
 # Description:
 """
@@ -150,10 +150,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-
-LOGIN_URL = reverse_lazy('auth:login')
-LOGIN_REDIRECT_URL = reverse_lazy('index')
-
 # Captcha settings
 CAPTCHA_CHALLENGE_FUNCT = 'authentication.captchas.random_num_challenge'
 CAPTCHA_LETTER_ROTATION = (-10, 10)
@@ -162,3 +158,5 @@ CAPTCHA_TIMEOUT = 1
 
 # Context variables related to SRPA
 TITLE = '场地预约与活动审批系统'
+LOGIN_URL = reverse_lazy('auth:login')
+LOGIN_REDIRECT_URL = reverse_lazy('index')

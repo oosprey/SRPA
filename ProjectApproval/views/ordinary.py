@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 09:17
-# Last modified: 2017-09-09 09:38
+# Last modified: 2017-09-09 10:08
 # Filename: ordinary.py
 # Description:
 from django.views.generic import ListView, CreateView, UpdateView, RedirectView
@@ -44,7 +44,6 @@ class ProjectDetail(ProjectBase, DetailView):
     """
 
     pass
-
 
 
 class ProjectAdd(ProjectBase, CreateView):

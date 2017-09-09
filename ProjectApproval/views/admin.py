@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 09:17
-# Last modified: 2017-09-09 09:38
+# Last modified: 2017-09-09 10:08
 # Filename: admin.py
 # Description:
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -32,9 +32,8 @@ class AdminProjectDetail(AdminProjectBase, ProjectDetail):
     """
     A view for displaying specified project for admin. GET only.
     """
-    
-    pass
 
+    pass
 
 
 class AdminProjectUpdate(AdminProjectBase, ProjectUpdate):

@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 09:03
-# Last modified: 2017-09-09 09:39
+# Last modified: 2017-09-09 10:08
 # Filename: admin.py
 # Description:
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -45,5 +45,3 @@ class AdminReservationUpdate(AdminReservationBase, ReservationUpdate):
     """
 
     pass
-
-
