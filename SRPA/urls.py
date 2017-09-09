@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:08
-# Last modified: 2017-09-09 09:17
+# Last modified: 2017-09-09 20:22
 # Filename: urls.py
 # Description:
 """SRPA URL Configuration
@@ -28,7 +28,9 @@ from authentication import views
 
 urlpatterns = [
     url('^$', views.IndexView.as_view(), name='index'),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^admin/', admin.site.urls),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^user/', include('authentication.urls', namespace='auth')),
     url(r'^reservation/', include('SiteReservation.urls',

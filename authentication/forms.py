@@ -3,13 +3,12 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:09
-# Last modified: 2017-09-08 17:31
+# Last modified: 2017-09-09 21:30
 # Filename: forms.py
 # Description:
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import AuthenticationForm
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
 from .models import UserInfo, StudentInfo, SocialInfo
@@ -58,11 +57,11 @@ class RegisterForm(ModelForm):
         except User.DoesNotExist:
             pass
         else:
-            errors['username'] = [_('该用户名已存在')]
+            errors['username'] = ['该用户名已被使用']
         password = cleaned_data.get('password')
         confirm_password = cleaned_data.get('confirm_password')
         if password != confirm_password:
-            errors['confirm_password'] = [_('请确认两次输入密码一致')]
+            errors['confirm_password'] = ['请确认两次输入密码一致']
         if errors:
             raise forms.ValidationError(errors)
         return cleaned_data

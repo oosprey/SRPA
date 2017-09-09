@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:05
-# Last modified: 2017-09-09 18:25
+# Last modified: 2017-09-09 21:33
 # Filename: settings.py
 # Description:
 """
@@ -57,12 +57,12 @@ INSTALLED_APPS = [
     'authentication',
     'SiteReservation',
     'ProjectApproval',
-    # 'bills',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
