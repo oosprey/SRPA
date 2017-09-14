@@ -26,7 +26,6 @@ class ProjectBase(LoginRequiredMixin):
     A base view for all project actions. SHOULD NOT DIRECTLY USE THIS.
     """
     model = Project
-    pass
 
 
 class ProjectRedirect(ProjectBase, RedirectView):
@@ -48,22 +47,18 @@ class ProjectList(ProjectBase, ListView):
         kwargs['origin'] = 'List'
         return super(ListView, self).get_context_data(**kwargs)
 
-    pass
-
 
 class ProjectDetail(ProjectBase, DetailView):
     """
     A view for displaying specified project. GET only.
     """
 
-    pass
-
 
 class ProjectAdd(ProjectBase, CreateView):
     """
     A view for creating a new project.
     """
-    template_name = 'ProjectApproval/add_activity.html'
+    # template_name = 'ProjectApproval/add_activity.html'
     form_class = AddActivityForm
     success_url = reverse_lazy('project:ordinary:list')
     form_post_url = reverse_lazy('project:ordinary:add')
@@ -78,7 +73,6 @@ class ProjectAdd(ProjectBase, CreateView):
         form.instance.user = self.request.user
         self.object = form.save()
         return HttpResponseRedirect(self.get_success_url())
-    pass
 
 
 class ProjectUpdate(ProjectBase, UpdateView):
