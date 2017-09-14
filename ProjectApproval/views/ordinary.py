@@ -27,12 +27,24 @@ class ProjectBase(LoginRequiredMixin):
     """
     model = Project
 
+class ProjectIndex(ProjectBase,TemplateView):
+
+    template_name = "ProjectApproval/base.html"
+
 
 class ProjectRedirect(ProjectBase, RedirectView):
     """
     A view for redirect admin users and ordinary users.
     """
-    # template_name = 'ProjectApproval/index.html'
+    def get(self, request, *args, **kwargs):
+        register_type = request.GET.get('type', None)
+        if register_type is None:
+            raise Http404()
+        try:
+            self.url = reverse(register_type)
+        except NoReverseMatch:
+            raise Http404()
+        return super(ProjectRedirect, self).get(request, *args, **kwargs)
     pass
 
 

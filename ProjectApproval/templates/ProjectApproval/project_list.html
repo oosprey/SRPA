@@ -1,9 +1,3 @@
-{% extends "ProjectApproval/base.html" %}
-
-{% block web_title %}
-{{block.super}} - 已预约活动
-{% endblock %}
-
 {% block project_content %}
 <table class="table"> 
     <tr class="fir_tr">
@@ -22,8 +16,8 @@
         <td>{{sheet.charger}}</td>
         <td>{{sheet.get_status_display}}</td>
         <td>
-        	<button class="btn btn-info btn-xs "><a href="{% url 'project:ordinary:detail' %}">详情</a></button>
-        	<button class="btn btn-info btn-xs "><a href="#">修改</a></button>
+        	<a class="btn btn-info btn-xs " href="{% url 'project:ordinary:detail'%}">详情</a>
+        	<a class="btn btn-info btn-xs " href="#">修改</a>
         </td>
     </tr>
     {% endfor %}

@@ -3,10 +3,13 @@
 <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 srpa-background">
     <h3>活动预约与审批</h3>
     <ul class="nav nav-tabs" role="tablist">
-        <li class="white {% if origin == 'List'%}active{%endif%}"><a type="button" class="btn" href="{% url 'project:ordinary:list' %}" >已预约活动</a></li>
-        <li class="white {% if origin == 'Add'%}active{%endif%}"><a type="button" class="btn" href="{% url 'project:ordinary:add' %}" >增加活动项</a></li>
+        <li class="white {% if origin == 'List'%}active{%endif%}"><a type="button" class="btn" onclick="load_project_info('project:ordinary:list')">已预约活动</a></li>
+        <li class="white {% if origin == 'Add'%}active{%endif%}"><a type="button" class="btn" onclick="load_project_info('project:ordinary:add')">增加活动项</a></li>
     </ul>
     {% block project_content %}
     {% endblock %}
+    <div id="project_item">
+    	
+    </div>
 </div>
 {% endblock %}

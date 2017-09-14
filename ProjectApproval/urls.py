@@ -17,6 +17,8 @@ ord_patterns = [
     url(r'^add/$', views.ProjectAdd.as_view(), name='add'),
     url(r'^update/$', views.ProjectUpdate.as_view(),
         name='update'),
+    url('^load_project_info/$', views.ProjectRedirect.as_view(),
+        name='load_project_info'),
 ]
 
 admin_patterns = [
@@ -28,7 +30,7 @@ admin_patterns = [
 
 
 urlpatterns = [
-    url(r'^$', views.ProjectList.as_view(), name='index'),
+    url(r'^$', views.ProjectIndex.as_view(), name='index'),
     url(r'^ordinary/', include(ord_patterns, namespace='ordinary')),
     url(r'^admin/', include(admin_patterns, namespace='admin')),
 ]
