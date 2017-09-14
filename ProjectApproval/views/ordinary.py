@@ -9,7 +9,7 @@
 from django.views.generic import ListView, CreateView, UpdateView, RedirectView
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import RedirectView, TemplateView
+from django.views.generic import TemplateView
 from django.urls import reverse_lazy, reverse, NoReverseMatch
 from django.http import HttpResponseRedirect
 
@@ -33,7 +33,7 @@ class ProjectRedirect(ProjectBase, RedirectView):
     """
     A view for redirect admin users and ordinary users.
     """
-    #template_name = 'ProjectApproval/index.html'
+    # template_name = 'ProjectApproval/index.html'
     pass
 
 
@@ -76,12 +76,9 @@ class ProjectAdd(ProjectBase, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        #form.instance.workshop = Workshop.objects.get(desc=form.cleaned_data['workshop'])
-        #form.instance.instructor = TeacherInfo.objects.get(username=form.cleaned_data['instructor'])
         self.object = form.save()
         return HttpResponseRedirect(self.get_success_url())
     pass
-
 
 
 class ProjectUpdate(ProjectBase, UpdateView):
@@ -91,4 +88,3 @@ class ProjectUpdate(ProjectBase, UpdateView):
     """
 
     pass
-

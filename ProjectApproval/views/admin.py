@@ -32,7 +32,7 @@ class AdminProjectDetail(AdminProjectBase, ProjectDetail):
     """
     A view for displaying specified project for admin. GET only.
     """
-    
+
     pass
 
 

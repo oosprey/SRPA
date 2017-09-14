@@ -45,7 +45,9 @@ class Project(models.Model):
     comment = models.TextField(verbose_name='备注')
     instructor_comment = models.TextField(verbose_name='指导教师意见')
     institute_comment = models.TextField(verbose_name='学院意见')
-    attachment = models.FileField(verbose_name='上传文件',upload_to=get_user_project_attachments_path,blank=True)
+    attachment = models.FileField(verbose_name='上传文件',
+                                  upload_to=get_user_project_attachments_path,
+                                  blank=True)
 
     class Meta:
         verbose_name = '活动项目'
