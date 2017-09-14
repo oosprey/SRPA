@@ -42,7 +42,7 @@ class RegisterForm(ModelForm):
         min_length=11,
         max_length=11)
     captcha = CaptchaField()
-
+ 
     class Meta:
         model = UserInfo
         fields = ['username', 'password', 'confirm_password',

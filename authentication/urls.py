@@ -50,4 +50,7 @@ urlpatterns = [
         name='logout'),
     url('^register/', include(register_patterns, namespace='register')),
     url('^info/', include(info_patterns, namespace='info')),
+    url('^info/', include(info_patterns, namespace='info')),
+    url(r'^project/', include('ProjectApproval.urls',
+        namespace='project')),
 ]

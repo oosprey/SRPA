@@ -1,0 +1,23 @@
+{% extends "authentication/index.html"%}
+{% load static %}
+{% load filters %}
+
+{% block web_title %}
+{{block.super}} - 已预约活动
+{% endblock %}
+
+{% block header_css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
+{% endblock %}
+
+{% block container%}
+<div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 srpa-background">
+
+	{% include './index.html' %}
+    <div id="form">
+        {% include './info_form.html' %}
+    </div>
+</div>
+{% endblock %}
+

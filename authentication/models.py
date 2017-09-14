@@ -83,3 +83,6 @@ class TeacherInfo(UserInfo):
         verbose_name = '指导教师信息'
         verbose_name_plural = '指导教师信息'
         default_permissions = ('add', 'delete', 'update', 'view')
+
+    def __str__(self):
+        return self.user_info.user.username

@@ -28,7 +28,7 @@ admin_patterns = [
 
 
 urlpatterns = [
-    url(r'^$', views.ProjectRedirect.as_view(), name='index'),
+    url(r'^$', views.ProjectList.as_view(), name='index'),
     url(r'^ordinary/', include(ord_patterns, namespace='ordinary')),
     url(r'^admin/', include(admin_patterns, namespace='admin')),
 ]
