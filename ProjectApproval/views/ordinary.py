@@ -52,7 +52,13 @@ class ProjectDetail(ProjectBase, DetailView):
     """
     A view for displaying specified project. GET only.
     """
-
+    fields = ['title', 'workshop', 'activity_time_from',
+              'activity_time_to', 'site', 'form', 'charger',
+              'contact_info', 'activity_range', 'amount', 'has_social',
+              'budget', 'comment', 'instructor_comment',
+              'attachment']
+    slug_field = 'uid'
+    slug_url_kwarg = 'uid'
 
 class ProjectAdd(ProjectBase, CreateView):
     """
