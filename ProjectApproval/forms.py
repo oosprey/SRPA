@@ -9,12 +9,10 @@ from ProjectApproval.models import Project
 class AddActivityForm(ModelForm):
 
     activity_time_from = forms.DateField(label='活动开始时间',
-                                         widget=SelectDateWidget(
-                                         empty_label="Nothing"))
+                                         widget=SelectDateWidget())
 
     activity_time_to = forms.DateField(label='活动结束时间',
-                                       widget=SelectDateWidget(
-                                       empty_label="Nothing"))
+                                       widget=SelectDateWidget())
 
     class Meta:
         model = Project
