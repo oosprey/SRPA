@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-08 20:07
-# Last modified: 2017-09-14 10:09
+# Last modified: 2017-09-14 10:12
 # Filename: auth.py
 # Description:
 import json
@@ -82,10 +82,6 @@ class StudentRegisterView(CreateView):
         kwargs['back_url'] = self.success_url
         kwargs['identity'] = self.identity
         return super(StudentRegisterView, self).get_context_data(**kwargs)
-
-    def form_invalid(self, form):
-        self.template_name = RegisterView.template_name
-        return super(StudentRegisterView, self).form_invalid(form)
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated():
