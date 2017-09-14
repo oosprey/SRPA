@@ -1,14 +1,11 @@
-{% extends "./layout.html"%}
+{% extends "ProjectApproval/base.html" %}
 
 {% block web_title %}
 {{block.super}} - 已预约活动
 {% endblock %}
 
-{% block container%}
-<div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 srpa-background">
-
-    {% include './option.html' %}
-    <table class="table"> 
+{% block project_content %}
+<table class="table"> 
     <tr class="fir_tr">
         <th>申请人</th>
         <th>工坊</th>
@@ -27,15 +24,11 @@
         <td>{{sheet.charger}}</td>
         <td>{{sheet.get_status_display}}</td>
         <td>
-        	<button class="btn btn-info btn-xs "><a href="#">详情</a></button>
-        	<button class="btn btn-info btn-xs "><a href="#">修改</a></button>
+            <button class="btn btn-info btn-xs "><a href="#">详情</a></button>
+            <button class="btn btn-info btn-xs "><a href="#">修改</a></button>
         </td>
     </tr>
     {% endfor %}
-	</table>
-</div>
+</table>
+
 {% endblock %}
-
-
-
-
