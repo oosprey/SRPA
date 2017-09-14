@@ -1,0 +1,6 @@
+<h3>活动预约与审批</h3>
+<ul class="nav nav-tabs" role="tablist">
+    <li class="white {% if origin == 'List'%}active{%endif%}"><a type="button" class="btn" href="{% url 'project:ordinary:list' %}" >已预约活动</a></li>
+    <li class="white {% if origin == 'Add'%}active{%endif%}"><a type="button" class="btn" href="{% url 'project:ordinary:add' %}" >增加活动项</a></li>
+</ul>
+
