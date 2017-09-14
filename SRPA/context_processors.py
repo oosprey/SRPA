@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 10:01
-# Last modified: 2017-09-14 10:03
+# Last modified: 2017-09-14 10:32
 # Filename: context_processors.py
 # Description:
 from django.conf import settings as sys_settings
