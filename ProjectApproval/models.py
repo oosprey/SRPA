@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 19:33
-# Last modified: 2017-09-14 10:56
+# Last modified: 2017-09-14 14:01
 # Filename: models.py
 # Description:
 from uuid import uuid4
@@ -41,7 +41,8 @@ class Project(models.Model):
     has_social = models.BooleanField(verbose_name='是否有校外人员参与')
     budget = models.TextField(verbose_name='活动预算及说明')
     comment = models.TextField(verbose_name='备注')
-    instructor_comment = models.TextField(verbose_name='指导教师意见')
+    instructor_comment = models.TextField(verbose_name='指导教师意见',
+                                          blank=True)
     attachment = models.FileField(
         verbose_name='上传附件', blank=True,
         upload_to=get_user_project_attachments_path)
