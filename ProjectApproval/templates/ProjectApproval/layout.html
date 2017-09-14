@@ -1,9 +1,13 @@
-{% extends "authentication/index.html" %}
+{% extends "base/layout.html" %}
 {% load static %}
+{% block navigation %}
+<ul class="nav navbar-nav">
+<li><a href='{% url 'index' %}'>主页</a></li>
+<li class="active"><a href='{% url 'project:index' %}'>活动预约审批</a></li>
+</ul>
+{% endblock %}
 
 {% block header_css %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'css/project.css' %}">
 {% endblock %}
-
-

@@ -17,3 +17,11 @@
 </div>
 </div>
 {% endblock %}
+{% block footer_js %}
+{{ block.super }}
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+</script>
+{% endblock %}

@@ -15,4 +15,19 @@ body{
     width: 100%;
     background-size: cover;
     background-position: center;
+<<<<<<< HEAD
+=======
+}
+
+.srpa-background{
+    background: rgba(0, 0, 0, 0.5);
+    padding-bottom: 2em;
+    color: white;
+    margin-top: 3em;
+    border-radius: 2em;
+}
+
+.nav-tabs{
+    margin-bottom: 2em;
+>>>>>>> origin/master
 }

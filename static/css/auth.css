@@ -2,18 +2,6 @@
     margin-bottom: 2em;
 }
 
-.nav-tabs{
-    margin-bottom: 2em;
-}
-
-.srpa-background{
-    background: rgba(0, 0, 0, 0.5);
-    padding-bottom: 2em;
-    color: white;
-    margin-top: 3em;
-    border-radius: 2em;
-}
-
 .input-group-addon-wide{
     min-width: 7em;
 }
