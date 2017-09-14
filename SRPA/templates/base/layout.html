@@ -11,6 +11,9 @@
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
         {% endblock %}
         {% block header_js %}
+        <script type='text/javascript' src="{% static 'js/jquery.min.js'%}"></script>
+        <script type='text/javascript' src="{% static 'js/bootstrap.min.js'%}"></script>
+        <script type="text/javascript" src="{% static 'js/bootstrap-datetimepicker.min.js' %}"></script>
         {% endblock %}
     </head>
     <body>
@@ -58,9 +61,6 @@
             </div>
         </div>
         {% block footer_js %}
-        <script type='text/javascript' src="{% static 'js/jquery.min.js'%}"></script>
-        <script type='text/javascript' src="{% static 'js/bootstrap.min.js'%}"></script>
-        <script type="text/javascript" src="{% static 'js/bootstrap-datetimepicker.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/srpa.js' %}"></script>
         {% endblock %}
     </body>
