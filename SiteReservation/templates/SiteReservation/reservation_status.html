@@ -1,0 +1,11 @@
+{% extends 'SiteReservation/base.html' %}
+{% block reservation_content %}
+<form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">选择日期</label>
+    <div class="col-sm-4">
+        {{form.date}}
+    </div>
+  </div>
+</form>
+{% endblock %}

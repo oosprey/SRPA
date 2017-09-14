@@ -3,11 +3,11 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 08:47
-# Last modified: 2017-09-09 09:37
+# Last modified: 2017-09-14 14:41
 # Filename: __init__.py
 # Description:
 from .ordinary import ReservationList, ReservationAdd, ReservationUpdate
-from .ordinary import ReservationRedirect, ReservationDetail
+from .ordinary import ReservationRedirect, ReservationDetail, ReservationStatus
 from .admin import AdminReservationList, AdminReservationUpdate
 from .admin import AdminReservationDetail
 
@@ -15,5 +15,5 @@ from .admin import AdminReservationDetail
 __all__ = [
     'ReservationRedirect', 'ReservationDetail', 'AdminReservationDetail',
     'ReservationList', 'ReservationAdd', 'ReservationUpdate',
-    'AdminReservationList', 'AdminReservationUpdate',
+    'AdminReservationList', 'AdminReservationUpdate', 'ReservationStatus',
 ]

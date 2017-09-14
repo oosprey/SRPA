@@ -3,15 +3,16 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 09:03
-# Last modified: 2017-09-09 09:37
+# Last modified: 2017-09-14 14:58
 # Filename: ordinary.py
 # Description:
 from django.views.generic import ListView, CreateView, UpdateView, RedirectView
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 from SiteReservation.models import Reservation
+from SiteReservation.forms import DateForm
 
 
 #  TODO: LoginRequiredMixin --> PermissionRequiredMixin
@@ -29,6 +30,11 @@ class ReservationRedirect(ReservationBase, RedirectView):
     """
 
     pass
+
+
+class ReservationStatus(ReservationBase, FormView):
+    template_name = 'SiteReservation/reservation_status.html'
+    form_class = DateForm
 
 
 class ReservationList(ReservationBase, ListView):
