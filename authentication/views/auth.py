@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-08 20:07
-# Last modified: 2017-09-09 09:01
+# Last modified: 2017-09-14 10:09
 # Filename: auth.py
 # Description:
 import json
@@ -20,8 +20,8 @@ from django.shortcuts import redirect
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
 
-from authentication import USER_IDENTITY_STUDENT, USER_IDENTITY_SOCIAL
-from authentication.forms import StudentRegisterForm, SocialRegisterForm
+from authentication import USER_IDENTITY_STUDENT
+from authentication.forms import StudentRegisterForm
 from authentication.forms import LoginForm
 from tools.utils import assign_perms
 
@@ -49,7 +49,7 @@ class CaptchaRefresh(View):
                             content_type='application/json')
 
 
-class RegisterView(CreateView):
+class StudentRegisterView(CreateView):
     """
     A view for displaying a registration page except for form.
     """
@@ -58,7 +58,8 @@ class RegisterView(CreateView):
     form_class = StudentRegisterForm
     success_url = reverse_lazy('index')
     identity = USER_IDENTITY_STUDENT
-    form_post_url = reverse_lazy('auth:register:student')
+    form_post_url = reverse_lazy('auth:register:index')
+    info_name = 'studentinfo'
 
     def form_valid(self, form):
         username = form.cleaned_data['username']
@@ -80,50 +81,13 @@ class RegisterView(CreateView):
         kwargs['form_post_url'] = self.form_post_url
         kwargs['back_url'] = self.success_url
         kwargs['identity'] = self.identity
-        return super(RegisterView, self).get_context_data(**kwargs)
+        return super(StudentRegisterView, self).get_context_data(**kwargs)
 
     def form_invalid(self, form):
         self.template_name = RegisterView.template_name
-        return super(RegisterView, self).form_invalid(form)
+        return super(StudentRegisterView, self).form_invalid(form)
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated():
             return redirect(reverse('index'), permanent=True)
-        return super(RegisterView, self).get(request, *args, **kwargs)
-
-
-class AuthFormLoadView(RedirectView):
-    """
-    A view for redirecting any requets for a auth form.
-    """
-    def get(self, request, *args, **kwargs):
-        register_type = request.GET.get('form_type', None)
-        if register_type is None:
-            raise Http404()
-        try:
-            self.url = reverse(register_type)
-        except NoReverseMatch:
-            raise Http404()
-        return super(AuthFormLoadView, self).get(request, *args, **kwargs)
-
-
-class StudentRegisterView(RegisterView):
-    """
-    A view for displaying a student registration form and handle POST request.
-    """
-    form_class = StudentRegisterForm
-    identity = USER_IDENTITY_STUDENT
-    info_name = 'studentinfo'
-    template_name = 'authentication/info_form.html'
-    form_post_url = reverse_lazy('auth:register:student')
-
-
-class SocialRegisterView(RegisterView):
-    """
-    A view for displaying a social registration form and handle POST request.
-    """
-    form_class = SocialRegisterForm
-    identity = USER_IDENTITY_SOCIAL
-    info_name = 'socialinfo'
-    template_name = 'authentication/info_form.html'
-    form_post_url = reverse_lazy('auth:register:social')
+        return super(StudentRegisterView, self).get(request, *args, **kwargs)

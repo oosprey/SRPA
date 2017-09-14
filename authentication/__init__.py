@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:08
-# Last modified: 2017-09-08 15:45
+# Last modified: 2017-09-14 09:47
 # Filename: __init__.py
 # Description:
 USER_IDENTITY_NOT_LOGIN = -2
@@ -12,17 +12,14 @@ USER_IDENTITY_SUPERADMIN = 0
 USER_IDENTITY_ADMIN = 1
 USER_IDENTITY_TEACHER = 2
 USER_IDENTITY_STUDENT = 3
-USER_IDENTITY_SOCIAL = 4
 USER_IDENTITIES = (
     (USER_IDENTITY_SUPERADMIN, '超级管理员'),
     (USER_IDENTITY_ADMIN, '平台管理员'),
     (USER_IDENTITY_TEACHER, '教师'),
     (USER_IDENTITY_STUDENT, '学生'),
-    (USER_IDENTITY_SOCIAL, '社会人员'),
 )
 REGISTER_IDENTITIES = (
     (USER_IDENTITY_STUDENT, '学生'),
-    (USER_IDENTITY_SOCIAL, '社会人员'),
 )
 
 

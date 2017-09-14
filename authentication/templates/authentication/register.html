@@ -16,8 +16,7 @@
     <h3>{{TITLE}}</h3>
     <h1>注册</h1>
     <ul class="nav nav-tabs" role="tablist">
-        <li class="white{% if identity == USER_IDENTITY_STUDENT %} active{% endif %}"><a type="button" class="btn" onclick="load_auth_form('auth:register:student')" data-toggle="tab">学生</a></li>
-        <li class="white{% if identity == USER_IDENTITY_SOCIAL %} active{% endif %}"><a type="button" class="btn" onclick="load_auth_form('auth:register:social')" data-toggle="tab">校外人员</a></li>
+        <li class="white{% if identity == USER_IDENTITY_STUDENT %} active{% endif %}"><a type="button" class="btn" data-toggle="tab">学生</a></li>
     </ul>
     <div id="form">
         {% include './info_form.html' %}

@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:10
-# Last modified: 2017-09-09 09:01
+# Last modified: 2017-09-14 10:07
 # Filename: urls.py
 # Description:
 from django.conf.urls import url, include
@@ -16,28 +16,18 @@ from .forms import LoginForm
 info_update_patterns = [
     url('^student/(?P<uid>.+)$', views.StudentInfoUpdate.as_view(),
         name='student'),
-    url('^social/(?P<uid>.+)$', views.SocialInfoUpdate.as_view(),
-        name='social'),
 ]
 
 
 info_patterns = [
     url('^student/(?P<uid>.+)$', views.StudentInfoDetail.as_view(),
         name='student'),
-    url('^social/(?P<uid>.+)$', views.SocialInfoDetail.as_view(),
-        name='social'),
     url('^update/', include(info_update_patterns, namespace='update')),
 ]
 
 register_patterns = [
-    url('^$', views.RegisterView.as_view(),
+    url('^$', views.StudentRegisterView.as_view(),
         name='index'),
-    url('^load_auth_form/$', views.AuthFormLoadView.as_view(),
-        name='load_auth_form'),
-    url('^student$', views.StudentRegisterView.as_view(),
-        name='student'),
-    url('^social$', views.SocialRegisterView.as_view(),
-        name='social'),
 ]
 
 urlpatterns = [

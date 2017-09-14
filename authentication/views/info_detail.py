@@ -3,14 +3,14 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-08 20:06
-# Last modified: 2017-09-08 22:05
+# Last modified: 2017-09-14 09:51
 # Filename: info_detail.py
 # Description:
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView
 from guardian.mixins import PermissionRequiredMixin
 
-from authentication.models import SocialInfo, StudentInfo
+from authentication.models import StudentInfo
 
 
 class InfoDetailBase(PermissionRequiredMixin, DetailView):
@@ -33,15 +33,3 @@ class StudentInfoDetail(InfoDetailBase):
     fields = ['student_id', 'institute']
     template_name = 'authentication/student_info_detail.html'
     permission_required = 'view_studentinfo'
-
-
-class SocialInfoDetail(InfoDetailBase):
-    """
-    A view for displaying social info.
-    """
-
-    model = SocialInfo
-    fields = ['citizen_id', 'title', 'education',
-              'political_status']
-    template_name = 'authentication/social_info_detail.html'
-    permission_required = 'view_socialinfo'
