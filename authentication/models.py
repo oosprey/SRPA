@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:09
-# Last modified: 2017-09-08 21:27
+# Last modified: 2017-09-14 09:52
 # Filename: models.py
 # Description:
 from uuid import uuid4
@@ -47,27 +47,6 @@ class StudentInfo(UserInfo):
     class Meta:
         verbose_name = '学生信息'
         verbose_name_plural = '学生信息'
-        default_permissions = ('add', 'delete', 'update', 'view')
-
-
-class SocialInfo(UserInfo):
-    user_info = models.OneToOneField(UserInfo, verbose_name='基本信息',
-                                     on_delete=models.CASCADE,
-                                     parent_link=True,
-                                     related_name='social_info')
-    citizen_id = models.CharField(verbose_name='身份证号',
-                                  max_length=18)
-    title = models.CharField(verbose_name='职务', max_length=30)
-    education = models.IntegerField(verbose_name='受教育程度',
-                                    choices=EDUCATION_BACKGROUNDS,
-                                    default=EDUCATION_NONE)
-    political_status = models.IntegerField(verbose_name='政治面貌',
-                                           choices=POLITICAL_STATUS,
-                                           default=POLITICAL_STATUS[0][0])
-
-    class Meta:
-        verbose_name = '社会人员信息'
-        verbose_name_plural = '社会人员信息'
         default_permissions = ('add', 'delete', 'update', 'view')
 
 

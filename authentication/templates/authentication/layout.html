@@ -10,15 +10,4 @@
 {% block footer_js %}
 {{ block.super }}
 <script type="text/javascript" src="{% static 'js/auth.js' %}"></script>
-<script>
-function load_auth_form(type)
-{
-    $.ajax({
-        url: "{% url 'auth:register:load_auth_form' %}",
-        type: 'GET', 
-        data: {'form_type': type},
-        success: form_callback,
-    });
-}
-</script>
 {% endblock %}

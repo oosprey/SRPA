@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-08 20:06
-# Last modified: 2017-09-09 08:59
+# Last modified: 2017-09-14 09:51
 # Filename: info_update.py
 # Description:
 from django.views.generic import UpdateView
@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from guardian.mixins import PermissionRequiredMixin
 
-from authentication.models import SocialInfo, StudentInfo
+from authentication.models import StudentInfo
 
 
 class InfoUpdateBase(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
@@ -43,15 +43,3 @@ class StudentInfoUpdate(InfoUpdateBase):
     fields = ['student_id', 'institute']
     success_url = 'auth:info:student'
     permission_required = 'update_studentinfo'
-
-
-class SocialInfoUpdate(InfoUpdateBase):
-    """
-    A view for updaing social info.
-    """
-
-    model = SocialInfo
-    fields = ['citizen_id', 'title', 'education',
-              'political_status']
-    success_url = 'auth:info:social'
-    permission_required = 'update_socialinfo'

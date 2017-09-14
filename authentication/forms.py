@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:09
-# Last modified: 2017-09-09 21:30
+# Last modified: 2017-09-14 09:50
 # Filename: forms.py
 # Description:
 from django import forms
@@ -11,7 +11,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 
-from .models import UserInfo, StudentInfo, SocialInfo
+from .models import UserInfo, StudentInfo
 from const.models import CaptchaField
 
 
@@ -72,17 +72,3 @@ class StudentRegisterForm(RegisterForm):
         model = StudentInfo
         fields = ['username', 'password', 'confirm_password',
                   'name', 'phone', 'student_id', 'institute', 'captcha']
-
-
-class SocialRegisterForm(RegisterForm):
-    citizen_id = forms.CharField(
-        label='身份证号',
-        widget=forms.TextInput(),
-        min_length=18,
-        max_length=18)
-
-    class Meta:
-        model = SocialInfo
-        fields = ['username', 'password', 'confirm_password',
-                  'name', 'phone', 'citizen_id', 'title', 'education',
-                  'political_status', 'captcha']

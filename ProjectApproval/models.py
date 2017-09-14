@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 19:33
-# Last modified: 2017-09-09 10:06
+# Last modified: 2017-09-14 09:59
 # Filename: models.py
 # Description:
 from uuid import uuid4
@@ -24,14 +24,12 @@ class Project(models.Model):
                              on_delete=models.CASCADE)
     workshop = models.ForeignKey(Workshop, verbose_name='工坊',
                                  on_delete=models.CASCADE)
-    instructor = models.ForeignKey(TeacherInfo, verbose_name='指导教师',
-                                   on_delete=models.CASCADE)
     status = models.IntegerField(verbose_name='状态',
                                  choices=PROJECT_STATUS,
                                  default=PROJECT_SUBMITTED)
     title = models.CharField(verbose_name='活动内容', max_length=100)
-    activity_time_from = models.DateField(verbose_name='活动开始时间')
-    activity_time_to = models.DateField(verbose_name='活动结束时间')
+    activity_time_from = models.DateTimeField(verbose_name='活动开始时间')
+    activity_time_to = models.DateTimeField(verbose_name='活动结束时间')
     site = models.CharField(verbose_name='活动场地', max_length=100)
     form = models.CharField(verbose_name='活动形式', max_length=30)
     charger = models.CharField(verbose_name='活动负责人', max_length=20)
@@ -44,12 +42,25 @@ class Project(models.Model):
     budget = models.TextField(verbose_name='活动预算及说明')
     comment = models.TextField(verbose_name='备注')
     instructor_comment = models.TextField(verbose_name='指导教师意见')
-    institute_comment = models.TextField(verbose_name='学院意见')
-    attachment = models.FileField(verbose_name='上传文件',
-                                  upload_to=get_user_project_attachments_path,
-                                  blank=True)
+    attachment = models.FileField(
+        verbose_name='上传附件', upload_to=get_user_project_attachments_path)
 
     class Meta:
         verbose_name = '活动项目'
         verbose_name_plural = '活动项目'
+        default_permissions = ('add', 'delete', 'update', 'view')
+
+
+class SocialInvitation(models.Model):
+    uid = models.UUIDField(default=uuid4, editable=False, unique=True)
+    project = models.ForeignKey(Project, verbose_name='活动项目',
+                                on_delete=models.CASCADE)
+    socials_info = models.TextField(verbose_name='校外人员名单')
+    attend_info = models.TextField(verbose_name='校外人员参与活动情况说明')
+    ideology_info = models.TextField(
+        verbose_name='校外人员思想意识形态情况说明')
+
+    class Meta:
+        verbose_name = '邀请校外人员申请表'
+        verbose_name_plural = '邀请校外人员申请表'
         default_permissions = ('add', 'delete', 'update', 'view')

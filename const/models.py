@@ -3,13 +3,15 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 18:34
-# Last modified: 2017-09-08 22:10
+# Last modified: 2017-09-14 09:46
 # Filename: models.py
 # Description:
 from uuid import uuid4
 
 from django.db import models
 from captcha.fields import CaptchaField as _CaptchaField
+
+from authentication.models import TeacherInfo
 
 
 class Site(models.Model):
@@ -28,6 +30,8 @@ class Site(models.Model):
 class Workshop(models.Model):
     uid = models.UUIDField(default=uuid4, editable=False, unique=True)
     desc = models.CharField(verbose_name='工坊', max_length=50)
+    instructor = models.ForeignKey(TeacherInfo, verbose_name='指导教师',
+                                   on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = '工坊信息'
