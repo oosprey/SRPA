@@ -29,11 +29,11 @@ class ProjectBase(LoginRequiredMixin):
     pass
 
 
-class ProjectRedirect(ProjectBase, TemplateView):
+class ProjectRedirect(ProjectBase, RedirectView):
     """
     A view for redirect admin users and ordinary users.
     """
-    template_name = 'ProjectApproval/index.html'
+    #template_name = 'ProjectApproval/index.html'
     pass
 
 
@@ -41,8 +41,6 @@ class ProjectList(ProjectBase, ListView):
     """
     A view for displaying user-related projects list. GET only.
     """
-    # template_name = 'ProjectApproval/index.html'
-
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
 
@@ -77,7 +75,6 @@ class ProjectAdd(ProjectBase, CreateView):
         return super(CreateView, self).get_context_data(**kwargs)
 
     def form_valid(self, form):
-
         form.instance.user = self.request.user
         #form.instance.workshop = Workshop.objects.get(desc=form.cleaned_data['workshop'])
         #form.instance.instructor = TeacherInfo.objects.get(username=form.cleaned_data['instructor'])
