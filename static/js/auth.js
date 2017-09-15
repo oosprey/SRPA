@@ -1,3 +1,10 @@
+$('.datetimepicker').datetimepicker({
+    format: 'yyyy-mm-dd hh:mm',
+    howMeridian: true,
+    autoclose: true,
+    todayBtn: true
+});
+
 function project_callback(data){
     // pass something
     var project_item = $('#project_item');

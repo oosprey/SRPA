@@ -6,10 +6,23 @@ from ProjectApproval.models import Project
 
 
 class AddActivityForm(ModelForm):
-    activity_time_from = forms.DateField(label='活动开始时间',
-                                         widget=SelectDateWidget())
-    activity_time_to = forms.DateField(label='活动结束时间',
-                                       widget=SelectDateWidget())
+
+    budget = forms.CharField(
+        label='预算及说明',
+        widget=forms.Textarea(attrs={"rows": 3}))
+    comment = forms.CharField(
+        label='备注',
+        widget=forms.Textarea(attrs={"rows": 3}))
+    activity_time_from = forms.CharField(
+        label='活动开始时间',
+        widget=forms
+        .DateTimeInput(attrs={'class': 'datetimepicker form-control'}),
+        required=False)
+    activity_time_to = forms.CharField(
+        label='活动结束时间',
+        widget=forms
+        .DateTimeInput(attrs={'class': 'datetimepicker form-control'}),
+        required=False)
 
     class Meta:
         model = Project

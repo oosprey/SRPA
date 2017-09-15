@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:05
-# Last modified: 2017-09-14 14:58
+# Last modified: 2017-09-14 15:25
 # Filename: settings.py
 # Description:
 """
@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'guardian',
     'captcha',
-    'datetimewidget',
     'tools',
     'const',
     'authentication',

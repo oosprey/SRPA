@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 19:21
-# Last modified: 2017-09-14 09:59
+# Last modified: 2017-09-15 15:06
 # Filename: models.py
 # Description:
 from uuid import uuid4
@@ -28,8 +28,8 @@ class Reservation(models.Model):
     title = models.CharField(verbose_name='活动内容', max_length=100)
     activity_time_from = models.DateTimeField(verbose_name='活动开始时间')
     activity_time_to = models.DateTimeField(verbose_name='活动结束时间')
-    reserve_from = models.DateTimeField(verbose_name='预约开始时间')
-    reserve_to = models.DateTimeField(verbose_name='预约结束时间')
+    reservation_time = models.DateTimeField(verbose_name='预约时间',
+                                            auto_now_add=True)
     comment = models.TextField(verbose_name='备注')
 
     class Meta:

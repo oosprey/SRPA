@@ -12,7 +12,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.urls import reverse_lazy, reverse, NoReverseMatch
 from django.http import HttpResponseRedirect
-from django.http import Http404
+from django.http import HttpResponse, HttpResponseBadRequest, Http404
+
 
 from ProjectApproval import PROJECT_STATUS, PROJECT_SUBMITTED
 from ProjectApproval.forms import AddActivityForm
@@ -59,10 +60,6 @@ class ProjectList(ProjectBase, ListView):
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
 
-    def get_context_data(self, **kwargs):
-        kwargs['origin'] = 'List'
-        return super(ListView, self).get_context_data(**kwargs)
-
 
 class ProjectDetail(ProjectBase, DetailView):
     """
@@ -73,24 +70,26 @@ class ProjectDetail(ProjectBase, DetailView):
     slug_field = 'uid'
     slug_url_kwarg = 'uid'
     raise_exception = True
-    fields = ['student_id', 'institute']
     template_name = 'authentication/student_info_detail.html'
     permission_required = 'view_studentinfo'
+    fields = ['title', 'workshop', 'activity_time_from',
+              'activity_time_to', 'site', 'form', 'charger',
+              'contact_info', 'activity_range', 'amount', 'has_social',
+              'budget', 'comment', 'instructor_comment',
+              'attachment']
 
 
 class ProjectAdd(ProjectBase, CreateView):
     """
     A view for creating a new project.
     """
-    # template_name = 'ProjectApproval/add_activity.html'
     form_class = AddActivityForm
-    success_url = reverse_lazy('project:ordinary:list')
+    success_url = reverse_lazy('project:index')
     form_post_url = reverse_lazy('project:ordinary:add')
 
     def get_context_data(self, **kwargs):
         kwargs['form_post_url'] = self.form_post_url
         kwargs['back_url'] = self.success_url
-        kwargs['origin'] = 'Add'
         return super(CreateView, self).get_context_data(**kwargs)
 
     def form_valid(self, form):
