@@ -10,22 +10,18 @@ import sys
 import os
 import django
 
-
-sys.path.append('..')
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "SRPA.settings")
-django.setup()
-
-
 from django.contrib.auth.models import User
-
 from authentication import USER_IDENTITY_STUDENT, USER_IDENTITY_TEACHER
 from authentication import INSTITUTES
-
 from authentication.models import StudentInfo, TeacherInfo
 from const.models import Site, Workshop
 from SiteReservation.models import Reservation
 from ProjectApproval.models import Project, SocialInvitation
 from tools.utils import assign_perms
+
+sys.path.append('..')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "SRPA.settings")
+django.setup()
 
 
 def create_student_info(num=10, prefix='student_'):

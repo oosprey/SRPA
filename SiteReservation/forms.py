@@ -13,5 +13,5 @@ class DateForm(forms.Form):
     date = forms.DateField(
         label='日期',
         widget=forms.TextInput(attrs={
-            'readonly':'true',
+            'readonly': 'true',
             'class': 'form-control'}))
