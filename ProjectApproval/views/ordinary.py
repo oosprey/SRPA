@@ -50,7 +50,6 @@ class ProjectRedirect(ProjectBase, RedirectView):
         except NoReverseMatch:
             raise Http404()
         return super(ProjectRedirect, self).get(request, *args, **kwargs)
-    pass
 
 
 class ProjectList(ProjectBase, ListView):
@@ -69,9 +68,6 @@ class ProjectDetail(ProjectBase, DetailView):
     http_method_names = ['get']
     slug_field = 'uid'
     slug_url_kwarg = 'uid'
-    raise_exception = True
-    template_name = 'authentication/student_info_detail.html'
-    permission_required = 'view_studentinfo'
     fields = ['title', 'workshop', 'activity_time_from',
               'activity_time_to', 'site', 'form', 'charger',
               'contact_info', 'activity_range', 'amount', 'has_social',
@@ -83,8 +79,9 @@ class ProjectAdd(ProjectBase, CreateView):
     """
     A view for creating a new project.
     """
+    template_name = 'ProjectApproval/project_form.html'
     form_class = AddActivityForm
-    success_url = reverse_lazy('project:index')
+    success_url = 'project:index'
     form_post_url = reverse_lazy('project:ordinary:add')
 
     def get_context_data(self, **kwargs):
