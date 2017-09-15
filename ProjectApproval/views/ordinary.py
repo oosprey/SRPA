@@ -51,7 +51,14 @@ class ProjectList(ProjectBase, ListView):
 class ProjectDetail(ProjectBase, DetailView):
     """
     A view for displaying specified project. GET only.
-    """
+    """    
+    http_method_names = ['get']
+    slug_field = 'uid'
+    slug_url_kwarg = 'uid'
+    raise_exception = True
+    fields = ['student_id', 'institute']
+    template_name = 'authentication/student_info_detail.html'
+    permission_required = 'view_studentinfo'
 
 
 class ProjectAdd(ProjectBase, CreateView):
@@ -81,4 +88,23 @@ class ProjectUpdate(ProjectBase, UpdateView):
     change, reject change if not match specified status.
     """
 
-    pass
+    template_name = 'ProjectApproval/project_update.html'
+    slug_field = 'uid'
+    slug_url_kwarg = 'uid'
+    raise_exception = True
+    fields = ['title', 'workshop', 'activity_time_from',
+                  'activity_time_to', 'site', 'form', 'charger',
+                  'contact_info', 'activity_range', 'amount', 'has_social',
+                  'budget', 'comment', 'instructor_comment',
+                  'attachment']
+    success_url = 'project:ordinary:list'
+    permission_required = 'update_studentinfo'       
+    def get_success_url(self):
+        slug_val = getattr(self.object, self.slug_field)
+        return reverse_lazy(self.success_url)
+				                                                                                
+    def get(self, request, *args, **kwargs):
+        slug_val = getattr(request.user.user_info, self.slug_field)
+        self.success_url = reverse_lazy(self.success_url)
+        return super(ProjectUpdate, self).get(request, *args, **kwargs)
+

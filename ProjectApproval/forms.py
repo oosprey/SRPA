@@ -18,3 +18,6 @@ class AddActivityForm(ModelForm):
                   'contact_info', 'activity_range', 'amount', 'has_social',
                   'budget', 'comment', 'instructor_comment',
                   'attachment']
+
+class UpdateActivityForm(AddActivityForm):
+    pass
