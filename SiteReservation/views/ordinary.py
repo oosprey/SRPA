@@ -3,16 +3,18 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 09:03
-# Last modified: 2017-09-14 14:58
+# Last modified: 2017-09-15 15:05
 # Filename: ordinary.py
 # Description:
 from django.views.generic import ListView, CreateView, UpdateView, RedirectView
 from django.views.generic import DetailView, TemplateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404, JsonResponse
 
 
 from SiteReservation.models import Reservation
 from SiteReservation.forms import DateForm
+from const.models import Site
 
 
 #  TODO: LoginRequiredMixin --> PermissionRequiredMixin
@@ -35,6 +37,17 @@ class ReservationRedirect(ReservationBase, RedirectView):
 class ReservationStatus(ReservationBase, FormView):
     template_name = 'SiteReservation/reservation_status.html'
     form_class = DateForm
+
+    def get_context_data(self, **kwargs):
+        kwargs['sites'] = Site.objects.all().order_by('desc')
+        return super(ReservationStatus, self).get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        uid = self.request.POST.get('uid', None)
+        if not uid:
+            raise Http404()
+        reservations = Reservation.objects.filter(site__uid=uid)
+        return JsonResponse({'status': 0})
 
 
 class ReservationList(ReservationBase, ListView):
