@@ -6,7 +6,7 @@
 # Last modified: 2017-09-09 09:39
 # Filename: __init__.py
 # Description:
-from .ordinary import ProjectList, ProjectAdd, ProjectUpdate
+from .ordinary import ProjectList, ProjectAdd, ProjectUpdate, ProjectIndex
 from .ordinary import ProjectRedirect, ProjectDetail
 from .admin import AdminProjectList, AdminProjectUpdate, AdminProjectDetail
 

@@ -14,7 +14,6 @@ from const.models import Workshop
 from authentication.models import TeacherInfo
 from . import PROJECT_STATUS, PROJECT_SUBMITTED
 from . import ACTIVITY_RANGES, ACTIVITY_RANGE_WORKSHOP
-
 from .utils import get_user_project_attachments_path
 
 

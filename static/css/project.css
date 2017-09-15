@@ -1,11 +1,15 @@
-.fir_tr th{
-    border-top: 1px solid transparent !important;
-}
-
 th{
 
 }
 
 a{
     color: white;
+}
+p{
+	font-size: 1.2em ;
+}
+p.text-danger{
+
+    text-align: right;
+    color: rgb(235, 66, 56);
 }

@@ -12,6 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.urls import reverse_lazy, reverse, NoReverseMatch
 from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseBadRequest, Http404
 
 from ProjectApproval import PROJECT_STATUS, PROJECT_SUBMITTED
 from ProjectApproval.forms import AddActivityForm
@@ -28,12 +29,24 @@ class ProjectBase(LoginRequiredMixin):
     model = Project
 
 
+class ProjectIndex(ProjectBase, TemplateView):
+
+    template_name = "ProjectApproval/base.html"
+
+
 class ProjectRedirect(ProjectBase, RedirectView):
     """
     A view for redirect admin users and ordinary users.
     """
-    # template_name = 'ProjectApproval/index.html'
-    pass
+    def get(self, request, *args, **kwargs):
+        register_type = request.GET.get('type', None)
+        if register_type is None:
+            raise Http404()
+        try:
+            self.url = reverse(register_type)
+        except NoReverseMatch:
+            raise Http404()
+        return super(ProjectRedirect, self).get(request, *args, **kwargs)
 
 
 class ProjectList(ProjectBase, ListView):
@@ -43,30 +56,31 @@ class ProjectList(ProjectBase, ListView):
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
 
-    def get_context_data(self, **kwargs):
-        kwargs['origin'] = 'List'
-        return super(ListView, self).get_context_data(**kwargs)
-
 
 class ProjectDetail(ProjectBase, DetailView):
     """
     A view for displaying specified project. GET only.
     """
+    fields = ['title', 'workshop', 'activity_time_from',
+              'activity_time_to', 'site', 'form', 'charger',
+              'contact_info', 'activity_range', 'amount', 'has_social',
+              'budget', 'comment', 'instructor_comment',
+              'attachment']
+    slug_field = 'uid'
+    slug_url_kwarg = 'uid'
 
 
 class ProjectAdd(ProjectBase, CreateView):
     """
     A view for creating a new project.
     """
-    # template_name = 'ProjectApproval/add_activity.html'
     form_class = AddActivityForm
-    success_url = reverse_lazy('project:ordinary:list')
+    success_url = reverse_lazy('project:index')
     form_post_url = reverse_lazy('project:ordinary:add')
 
     def get_context_data(self, **kwargs):
         kwargs['form_post_url'] = self.form_post_url
         kwargs['back_url'] = self.success_url
-        kwargs['origin'] = 'Add'
         return super(CreateView, self).get_context_data(**kwargs)
 
     def form_valid(self, form):
