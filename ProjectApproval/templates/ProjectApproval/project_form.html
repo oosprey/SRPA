@@ -1,11 +1,3 @@
-{% extends "ProjectApproval/base.html" %}
 
-{% block web_title %}
-{{block.super}} - 新预约
-{% endblock %}
+{% include 'authentication/info_form.html' %}
 
-{% block project_content %}
-<div id="form">
-    {% include 'authentication/info_form.html' %}
-</div>
-{% endblock %}

@@ -1,15 +1,8 @@
-{% extends "ProjectApproval/base.html" %}
-
-{% block web_title %}
-{{block.super}} - 已预约活动
-{% endblock %}
-
 {% block project_content %}
 <table class="table"> 
     <tr class="fir_tr">
         <th>申请人</th>
         <th>工坊</th>
-        <th>指导教师</th>
         <th>活动内容</th>
         <th>活动负责人</th>
         <th>状态</th>
@@ -19,16 +12,16 @@
     <tr>
         <td>{{sheet.user}}</td>
         <td>{{sheet.workshop}}</td>
-        <td>{{sheet.instructor}}</td>
         <td>{{sheet.title}}</td>
         <td>{{sheet.charger}}</td>
         <td>{{sheet.get_status_display}}</td>
         <td>
-            <button class="btn btn-info btn-xs "><a href="#">详情</a></button>
+            <a class="btn btn-info btn-xs " href="#">详情</a>
+            {% if sheet.get_status_display != '活动已报销'  %}
             <a type="button" class="btn btn-info btn-xs" href="{% url 'project:ordinary:update' sheet.uid %}">修改</a>
+            {% endif %}
         </td>
     </tr>
     {% endfor %}
 </table>
-
 {% endblock %}

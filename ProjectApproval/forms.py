@@ -19,5 +19,6 @@ class AddActivityForm(ModelForm):
                   'budget', 'comment', 'instructor_comment',
                   'attachment']
 
+
 class UpdateActivityForm(AddActivityForm):
     pass

@@ -1,5 +1,9 @@
 .fir_tr th{
+<<<<<<< HEAD
+/*border-top: 1px solid transparent !important;*/
+=======
     border-top: 1px solid transparent !important;
+>>>>>>> origin/master
 }
 
 th{

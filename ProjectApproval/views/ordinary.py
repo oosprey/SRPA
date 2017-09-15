@@ -12,12 +12,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.urls import reverse_lazy, reverse, NoReverseMatch
 from django.http import HttpResponseRedirect
+from django.http import Http404
 
 from ProjectApproval import PROJECT_STATUS, PROJECT_SUBMITTED
 from ProjectApproval.forms import AddActivityForm
+from ProjectApproval.forms import UpdateActivityForm
 from ProjectApproval.models import Project
 from const.models import Workshop
-from authentication.models import TeacherInfo
+from authentication.models import UserInfo
+from authentication import USER_IDENTITIES
 
 
 #  TODO: LoginRequiredMixin --> PermissionRequiredMixin
@@ -28,11 +31,24 @@ class ProjectBase(LoginRequiredMixin):
     model = Project
 
 
+class ProjectIndex(ProjectBase, TemplateView):
+
+    template_name = "ProjectApproval/base.html"
+
+
 class ProjectRedirect(ProjectBase, RedirectView):
     """
     A view for redirect admin users and ordinary users.
     """
-    # template_name = 'ProjectApproval/index.html'
+    def get(self, request, *args, **kwargs):
+        register_type = request.GET.get('type', None)
+        if register_type is None:
+            raise Http404()
+        try:
+            self.url = reverse(register_type)
+        except NoReverseMatch:
+            raise Http404()
+        return super(ProjectRedirect, self).get(request, *args, **kwargs)
     pass
 
 
@@ -51,7 +67,8 @@ class ProjectList(ProjectBase, ListView):
 class ProjectDetail(ProjectBase, DetailView):
     """
     A view for displaying specified project. GET only.
-    """    
+
+    """
     http_method_names = ['get']
     slug_field = 'uid'
     slug_url_kwarg = 'uid'
@@ -91,20 +108,12 @@ class ProjectUpdate(ProjectBase, UpdateView):
     template_name = 'ProjectApproval/project_update.html'
     slug_field = 'uid'
     slug_url_kwarg = 'uid'
-    raise_exception = True
-    fields = ['title', 'workshop', 'activity_time_from',
-                  'activity_time_to', 'site', 'form', 'charger',
-                  'contact_info', 'activity_range', 'amount', 'has_social',
-                  'budget', 'comment', 'instructor_comment',
-                  'attachment']
-    success_url = 'project:ordinary:list'
-    permission_required = 'update_studentinfo'       
+    form_class = UpdateActivityForm
+    success_url = 'project:index'
+
     def get_success_url(self):
-        slug_val = getattr(self.object, self.slug_field)
         return reverse_lazy(self.success_url)
-				                                                                                
+
     def get(self, request, *args, **kwargs):
-        slug_val = getattr(request.user.user_info, self.slug_field)
         self.success_url = reverse_lazy(self.success_url)
         return super(ProjectUpdate, self).get(request, *args, **kwargs)
-

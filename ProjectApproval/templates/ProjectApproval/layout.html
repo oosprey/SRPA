@@ -6,7 +6,14 @@
 <li class="active"><a href='{% url 'project:index' %}'>活动预约审批</a></li>
 </ul>
 {% endblock %}
+
 {% block header_css %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'css/project.css' %}">
+{% endblock %}
+
+{% block footer_js %}
+{{ block.super }}
+<script type="text/javascript" src="{% static 'js/auth.js' %}"></script>
+
 {% endblock %}
