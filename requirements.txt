@@ -1,5 +1,4 @@
 Django==1.11.2
-django-datetime-widget==0.9.3
 django-guardian==1.4.8
 django-simple-captcha==0.5.5
 flake8==3.4.1

@@ -1,0 +1,32 @@
+<h3>{{site}}预约情况</h3>
+<div class="table-responsive">
+    <table class="table status-table">
+        <tr>
+            <th></th>
+            <th>8-9</th>
+            <th>9-10</th>
+            <th>10-11</th>
+            <th>11-12</th>
+            <th>12-13</th>
+            <th>13-14</th>
+            <th>14-15</th>
+            <th>15-16</th>
+            <th>16-17</th>
+            <th>17-18</th>
+            <th>18-19</th>
+            <th>19-20</th>
+            <th>20-21</th>
+            <th>21-22</th>
+        </tr>
+        <tr>
+            <td>{{date}}</td>
+            {% for status in available_status %}
+            {% if status %}
+            <td></td>
+            {% else %}
+            <td class='not-available'>已预约</td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+    </table>
+</div>

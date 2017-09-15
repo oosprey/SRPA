@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 08:48
-# Last modified: 2017-09-14 14:42
+# Last modified: 2017-09-15 14:30
 # Filename: urls.py
 # Description:
 from django.conf.urls import url, include
