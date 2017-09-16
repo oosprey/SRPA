@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 09:03
-# Last modified: 2017-09-15 16:52
+# Last modified: 2017-09-16 10:43
 # Filename: ordinary.py
 # Description:
 from datetime import datetime, timedelta, timezone
@@ -12,10 +12,13 @@ from django.views.generic import ListView, CreateView, UpdateView, RedirectView
 from django.views.generic import DetailView, TemplateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, JsonResponse
+from django.urls import reverse
 from django.template.loader import render_to_string
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 
 
+from authentication import USER_IDENTITY_STUDENT, USER_IDENTITY_TEACHER
+from authentication import USER_IDENTITY_ADMIN
 from SiteReservation.models import Reservation
 from SiteReservation.forms import DateForm
 from const.models import Site
@@ -35,7 +38,16 @@ class ReservationRedirect(ReservationBase, RedirectView):
     A view for redirect admin users and ordinary users.
     """
 
-    pass
+    def get(self, request, *args, **kwargs):
+        identity = request.user.user_info.identity
+        if identity == USER_IDENTITY_STUDENT:
+            return redirect(reverse('reservation:status'))
+        elif identity == USER_IDENTITY_TEACHER:
+            pass
+        elif identity == USER_IDENTITY_ADMIN:
+            return redirect(reverse('reservation:admin:list'))
+        else:
+            raise Http404()
 
 
 class ReservationStatus(ReservationBase, FormView):
