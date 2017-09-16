@@ -1,10 +1,32 @@
 $(function () {
-    re_init_js();
+    init_js();
+    $('.page-loader').on('click', function(e){
+        var load_target = $(this).attr('load-target');
+        var target = this;
+        if($(target).parent().hasClass('active'))
+            return;
+        $.ajax({
+            type: 'GET',
+            url: load_target,
+            success: function(data){
+                clean_js();
+                $("#reservation_content").html(data);
+                $('li.active').removeClass('active');
+                $(target).parent().addClass('active');
+                init_js();
+            }
+        });
+    });
+    $('.page-loader').first().click();
 })
-function re_init_js()
+function clean_js()
+{
+    $('#dt_div').datetimepicker('remove');
+}
+function init_js()
 {
     $('[data-toggle="tooltip"]').tooltip();
-    $(".form_datetime").datetimepicker({
+    $("#dt_div").datetimepicker({
         format: "yyyy/mm/dd",
         weekStart: 1,
         autoclose: true,
@@ -28,8 +50,5 @@ function re_init_js()
                 }
             },
         });
-    });
-    $('.page-loader').on('click', function(e){
-        alert($(this).attr('load-target'));
     });
 }
