@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 09:03
-# Last modified: 2017-09-16 10:43
+# Last modified: 2017-09-16 11:41
 # Filename: ordinary.py
 # Description:
 from datetime import datetime, timedelta, timezone
@@ -33,21 +33,8 @@ class ReservationBase(LoginRequiredMixin):
     model = Reservation
 
 
-class ReservationRedirect(ReservationBase, RedirectView):
-    """
-    A view for redirect admin users and ordinary users.
-    """
-
-    def get(self, request, *args, **kwargs):
-        identity = request.user.user_info.identity
-        if identity == USER_IDENTITY_STUDENT:
-            return redirect(reverse('reservation:status'))
-        elif identity == USER_IDENTITY_TEACHER:
-            pass
-        elif identity == USER_IDENTITY_ADMIN:
-            return redirect(reverse('reservation:admin:list'))
-        else:
-            raise Http404()
+class ReservationIndex(ReservationBase, TemplateView):
+    template_name = 'SiteReservation/index.html'
 
 
 class ReservationStatus(ReservationBase, FormView):
@@ -62,6 +49,8 @@ class ReservationStatus(ReservationBase, FormView):
     def form_valid(self, form):
         uid = self.request.POST.get('site_uid', None)
         date = form.cleaned_data['date']
+        if date < datetime.now().date():
+            return JsonResponse({'status': 2, 'reason': '请选择一个未来时间'})
         start_dt = datetime.combine(date, datetime.min.time(), timezone.utc)
         end_dt = start_dt + timedelta(days=1)
         if not uid:
@@ -82,7 +71,7 @@ class ReservationStatus(ReservationBase, FormView):
         return JsonResponse({'status': 0, 'html': status_table})
 
     def form_invalid(self, form):
-        return JsonResponse({'status': 1})
+        return JsonResponse({'status': 1, 'reason': '表单信息有误，请核对'})
 
 
 class ReservationList(ReservationBase, ListView):

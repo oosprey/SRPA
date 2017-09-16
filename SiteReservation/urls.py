@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 08:48
-# Last modified: 2017-09-15 14:30
+# Last modified: 2017-09-16 11:41
 # Filename: urls.py
 # Description:
 from django.conf.urls import url, include
@@ -28,7 +28,7 @@ admin_patterns = [
 
 
 urlpatterns = [
-    url(r'^$', views.ReservationRedirect.as_view(), name='index'),
+    url(r'^$', views.ReservationIndex.as_view(), name='index'),
     url(r'^status/', views.ReservationStatus.as_view(), name='status'),
     url(r'^ordinary/', include(ord_patterns, namespace='ordinary')),
     url(r'^admin/', include(admin_patterns, namespace='admin')),

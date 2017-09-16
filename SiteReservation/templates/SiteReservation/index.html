@@ -1,0 +1,15 @@
+{% extends 'SiteReservation/base.html' %}
+{% block footer_js %}
+{{ block.super }}
+    <script id="init_load">
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'reservation:status' %}",
+            success: function(data){
+                $("#reservation_content").html(data);
+                re_init_js();
+            }
+        });
+        $("#init_load").remove();
+    </script>
+{% endblock %}
