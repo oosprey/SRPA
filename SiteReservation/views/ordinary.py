@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 09:03
-# Last modified: 2017-09-17 17:11
+# Last modified: 2017-09-17 20:37
 # Filename: ordinary.py
 # Description:
 from datetime import datetime, timedelta, timezone
@@ -19,6 +19,7 @@ from django.shortcuts import get_object_or_404, redirect
 
 from authentication import USER_IDENTITY_STUDENT, USER_IDENTITY_TEACHER
 from authentication import USER_IDENTITY_ADMIN
+from SiteReservation import RESERVATION_APPROVED
 from SiteReservation.models import Reservation
 from SiteReservation.forms import DateForm
 from const.models import Site
@@ -58,11 +59,13 @@ class ReservationStatus(ReservationBase, FormView):
             raise Http404()
         site = get_object_or_404(Site, uid=uid)
         reservations = Reservation.objects.filter(site=site)
+        reservations = reservations.filter(status=RESERVATION_APPROVED)
         reservations = reservations.filter(
             activity_time_from__range=(start_dt, end_dt))  # day range
         available_status = [True for _ in range(14)]  # 0 -> 08:00 ~ 09:00
         for r in reservations:
-            for hour in range(r.activity_time_from, r.activity_time_to):
+            for hour in range(r.activity_time_from.hour,
+                              r.activity_time_to.hour):
                 available_status[hour] = False
         status_table = render_to_string(
             self.status_table_name, request=self.request,
