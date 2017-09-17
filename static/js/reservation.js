@@ -27,7 +27,7 @@ function init_js()
 {
     $('[data-toggle="tooltip"]').tooltip();
     $("#dt_div").datetimepicker({
-        format: "yyyy/mm/dd",
+        format: "yyyy-mm-dd",
         weekStart: 1,
         autoclose: true,
         todayBtn: true,

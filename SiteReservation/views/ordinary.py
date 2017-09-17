@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 09:03
-# Last modified: 2017-09-16 11:41
+# Last modified: 2017-09-17 16:57
 # Filename: ordinary.py
 # Description:
 from datetime import datetime, timedelta, timezone
@@ -51,7 +51,8 @@ class ReservationStatus(ReservationBase, FormView):
         date = form.cleaned_data['date']
         if date < datetime.now().date():
             return JsonResponse({'status': 2, 'reason': '请选择一个未来时间'})
-        start_dt = datetime.combine(date, datetime.min.time(), timezone.utc)
+        start_dt = datetime.combine(date, datetime.min.time())
+        start_dt = start_dt.astimezone(timezone.utc)
         end_dt = start_dt + timedelta(days=1)
         if not uid:
             raise Http404()
