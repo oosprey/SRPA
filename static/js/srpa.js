@@ -33,7 +33,10 @@ $(function(){
                 }
                 // Init new js
                 init_js();
-            }
+            },
+            error: function(request, error){
+                alert('与服务器通信发生错误');
+            },
         });
     });
 });
