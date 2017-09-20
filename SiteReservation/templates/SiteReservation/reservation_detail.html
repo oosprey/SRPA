@@ -49,10 +49,10 @@
     </div>
 </form>
 <div class="col-sm-6 col-sm-offset-3">
-    {% if object.status in RESERVATION_STATUS_CAN_EDIT %}
+    {% if object.status in PROJECT_STATUS_CAN_EDIT %}
     <a type="button" class="btn btn-info srpa-loader" loader-type='page' loader-target="{% url 'reservation:ordinary:update' object.uid %}">修改</a>
     {% endif %}
-    {% if object.status in RESERVATION_STATUS_CAN_CANCEL %}
+    {% if object.status in PROJECT_STATUS_CAN_EDIT %}
     <a type="button" class="btn btn-danger" href="#">取消</a>
     {% endif %}
 </div>

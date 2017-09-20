@@ -111,3 +111,8 @@ class ProjectUpdate(ProjectBase, UpdateView):
         kwargs['back_url'] = self.success_url
         kwargs['form_post_url'] = self.form_post_url
         return super(UpdateView, self).get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        self.object = form.save()
+        return JsonResponse({'status': 0, 'redirect': self.success_url})

@@ -18,7 +18,7 @@
         <td>{{sheet.get_status_display}}</td>
         <td>
         	<a type="button" class="btn btn-info btn-xs srpa-loader" loader-type='page' loader-target="{% url 'project:ordinary:detail' sheet.uid %}">详情</a>
-        	{% if sheet.get_status_display != '活动已报销'  %}
+        	 {% if sheet.status in PROJECT_STATUS_CAN_EDIT %}
             <a type="button" class="btn btn-info btn-xs srpa-loader" loader-type="page" loader-target="{% url 'project:ordinary:update' sheet.uid %}">修改</a>
             {% endif %}
         </td>
