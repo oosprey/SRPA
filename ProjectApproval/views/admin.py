@@ -25,8 +25,7 @@ class AdminProjectList(AdminProjectBase, ProjectList):
     A view for displaying projects list for admin. GET only.
     """
 
-    def get_context_data(self, **kwargs):
-        return super(AdminProjectList, self).get_context_data(**kwargs)
+    pass
 
 
 class AdminProjectDetail(AdminProjectBase, ProjectDetail):

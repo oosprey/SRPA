@@ -16,11 +16,12 @@ from django.http import HttpResponse
 from django.http import HttpResponseForbidden
 from django.template.loader import render_to_string
 from ProjectApproval import PROJECT_STATUS, PROJECT_SUBMITTED
-from ProjectApproval.forms import AddActivityForm, UpdateActivityForm
+from ProjectApproval.forms import ActivityForm
 from ProjectApproval.models import Project
 from const.models import Workshop
 from authentication.models import UserInfo
 from authentication import USER_IDENTITIES
+from ProjectApproval import PROJECT_STATUS_CAN_EDIT
 
 
 #  TODO: LoginRequiredMixin --> PermissionRequiredMixin
@@ -67,9 +68,9 @@ class ProjectAdd(ProjectBase, CreateView):
     A view for creating a new project.
     """
     template_name = 'ProjectApproval/project_add.html'
-    form_class = AddActivityForm
+    form_class = ActivityForm
     success_url = reverse_lazy('project:index')
-    form_post_url = reverse_lazy('project:ordinary:add')
+    form_post_url = 'project:ordinary:add'
 
     def get_context_data(self, **kwargs):
         kwargs['form_post_url'] = self.form_post_url
@@ -98,14 +99,24 @@ class ProjectUpdate(ProjectBase, UpdateView):
     template_name = 'ProjectApproval/project_update.html'
     slug_field = 'uid'
     slug_url_kwarg = 'uid'
-    form_class = UpdateActivityForm
+    form_class = ActivityForm
     success_url = reverse_lazy('project:index')
     form_post_url = 'project:ordinary:update'
 
     def get(self, request, *args, **kwargs):
-        if request.is_ajax():
-            return super(ProjectUpdate, self).get(request, *args, **kwargs)
-        return HttpResponseForbidden()
+        self.object = self.get_object()
+        is_ajax = request.is_ajax()
+        allowed_status = self.object.status in PROJECT_STATUS_CAN_EDIT
+        if not is_ajax or not allowed_status:
+            return HttpResponseForbidden()
+        return self.render_to_response(self.get_context_data())
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        allowed_status = self.object.status in PROJECT_STATUS_CAN_EDIT
+        if not allowed_status:
+            return HttpResponseForbidden()
+        return super(ProjectUpdate, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         kwargs['back_url'] = self.success_url

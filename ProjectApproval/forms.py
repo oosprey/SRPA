@@ -5,7 +5,7 @@ from django.forms.extras.widgets import SelectDateWidget
 from ProjectApproval.models import Project
 
 
-class AddActivityForm(ModelForm):
+class ActivityForm(ModelForm):
 
     budget = forms.CharField(
         label='预算及说明',
@@ -37,7 +37,7 @@ class AddActivityForm(ModelForm):
                   'attachment']
 
     def clean(self):
-        cleaned_data = super(AddActivityForm, self).clean()
+        cleaned_data = super(ActivityForm, self).clean()
         errors = {}
         t1 = cleaned_data.get('activity_time_from')
         t2 = cleaned_data.get('activity_time_to')
@@ -49,7 +49,3 @@ class AddActivityForm(ModelForm):
         if errors:
             raise forms.ValidationError(errors)
         return cleaned_data
-
-
-class UpdateActivityForm(AddActivityForm):
-    pass
