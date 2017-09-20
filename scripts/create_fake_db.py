@@ -23,6 +23,10 @@ from SiteReservation.models import Reservation
 from ProjectApproval.models import Project, SocialInvitation
 from tools.utils import assign_perms
 
+sys.path.append('..')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "SRPA.settings")
+django.setup()
+
 
 def create_student_info(num=10, prefix='student_'):
     students = []
