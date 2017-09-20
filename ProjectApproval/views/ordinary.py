@@ -11,22 +11,12 @@ from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.urls import reverse_lazy, reverse, NoReverseMatch
-<<<<<<< HEAD
 from django.http import Http404, JsonResponse, HttpResponseRedirect
 from django.http import HttpResponse
 from django.http import HttpResponseForbidden
 from django.template.loader import render_to_string
 from ProjectApproval import PROJECT_STATUS, PROJECT_SUBMITTED
 from ProjectApproval.forms import AddActivityForm, UpdateActivityForm
-=======
-from django.http import HttpResponseRedirect
-from django.http import HttpResponse, HttpResponseBadRequest, Http404
-
-
-from ProjectApproval import PROJECT_STATUS, PROJECT_SUBMITTED
-from ProjectApproval.forms import AddActivityForm
-from ProjectApproval.forms import UpdateActivityForm
->>>>>>> ae4a840b1efe4830b173f65ea8fc5aa6ea47a48d
 from ProjectApproval.models import Project
 from const.models import Workshop
 from authentication.models import UserInfo
