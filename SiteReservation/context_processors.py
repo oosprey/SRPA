@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-16 10:55
-# Last modified: 2017-09-20 16:36
+# Last modified: 2017-09-20 16:45
 # Filename: context_processors.py
 # Description:
 from SiteReservation import RESERVATION_SUBMITTED, RESERVATION_CANCELLED
@@ -19,7 +19,7 @@ def expose_consts(request):
         'RESERVATION_CANCELLED': RESERVATION_CANCELLED,
         'RESERVATION_APPROVED': RESERVATION_APPROVED,
         'RESERVATION_TERMINATED': RESERVATION_TERMINATED,
-        'RESERVATION_STATUS_STUDENT_ACTIONS': RESERVATION_STATUS_STUDENT,
+        'RESERVATION_STATUS_STUDENT': RESERVATION_STATUS_STUDENT,
         'RESERVATION_STATUS_CAN_CANCEL': RESERVATION_STATUS_CAN_CANCEL,
     }
     return consts
