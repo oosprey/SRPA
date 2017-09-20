@@ -13,15 +13,19 @@ class AddActivityForm(ModelForm):
     comment = forms.CharField(
         label='备注',
         widget=forms.Textarea(attrs={"rows": 3}))
-    activity_time_from = forms.CharField(
+    activity_time_from = forms.DateTimeField(
         label='活动开始时间',
+        input_formats=['%Y-%m-%d %H:00:00'],
         widget=forms.DateTimeInput(
-            attrs={'class': 'form_datetime_hour form-control'}),
+            attrs={'class': 'form_datetime_hour form-control'},
+            format='%Y-%m-%d %H:00:00'),
         required=False)
-    activity_time_to = forms.CharField(
+    activity_time_to = forms.DateTimeField(
         label='活动结束时间',
+        input_formats=['%Y-%m-%d %H:00:00'],
         widget=forms.DateTimeInput(
-            attrs={'class': 'form_datetime_hour form-control'}),
+            attrs={'class': 'form_datetime_hour form-control'},
+            format='%Y-%m-%d %H:00:00'),
         required=False)
 
     class Meta:
@@ -45,3 +49,7 @@ class AddActivityForm(ModelForm):
         if errors:
             raise forms.ValidationError(errors)
         return cleaned_data
+
+
+class UpdateActivityForm(AddActivityForm):
+    pass

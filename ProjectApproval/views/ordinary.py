@@ -12,10 +12,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.urls import reverse_lazy, reverse, NoReverseMatch
 from django.http import Http404, JsonResponse, HttpResponseRedirect
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse
+from django.http import HttpResponseForbidden
 from django.template.loader import render_to_string
 from ProjectApproval import PROJECT_STATUS, PROJECT_SUBMITTED
-from ProjectApproval.forms import AddActivityForm
+from ProjectApproval.forms import AddActivityForm, UpdateActivityForm
 from ProjectApproval.models import Project
 from const.models import Workshop
 from authentication.models import TeacherInfo
@@ -46,11 +47,7 @@ class ProjectDetail(ProjectBase, DetailView):
     """
     A view for displaying specified project. GET only.
     """
-    fields = ['title', 'workshop', 'activity_time_from',
-              'activity_time_to', 'site', 'form', 'charger',
-              'contact_info', 'activity_range', 'amount', 'has_social',
-              'budget', 'comment', 'instructor_comment',
-              'attachment']
+
     slug_field = 'uid'
     slug_url_kwarg = 'uid'
 
@@ -88,5 +85,19 @@ class ProjectUpdate(ProjectBase, UpdateView):
     A view for updating an exist project. Should check status before
     change, reject change if not match specified status.
     """
+    template_name = 'ProjectApproval/project_update.html'
+    slug_field = 'uid'
+    slug_url_kwarg = 'uid'
+    form_class = UpdateActivityForm
+    success_url = reverse_lazy('project:index')
+    form_post_url = 'project:ordinary:update'
 
-    pass
+    def get(self, request, *args, **kwargs):
+        if request.is_ajax():
+            return super(ProjectUpdate, self).get(request, *args, **kwargs)
+        return HttpResponseForbidden()
+
+    def get_context_data(self, **kwargs):
+        kwargs['back_url'] = self.success_url
+        kwargs['form_post_url'] = self.form_post_url
+        return super(UpdateView, self).get_context_data(**kwargs)
