@@ -4,11 +4,7 @@ from ProjectApproval import PROJECT_TERMINATED, PROJECT_END_CONFIRMED
 from ProjectApproval import PROJECT_END_EDITTING, PROJECT_FINISHED
 from ProjectApproval import PROJECT_COMPLETED
 from ProjectApproval import PROJECT_STATUS_CAN_EDIT
-<<<<<<< HEAD
 from ProjectApproval import PROJECT_STATUS_CAN_CHECK
-=======
-from ProjectApproval import PROJECT_STATUS_TEACHER
->>>>>>> osprey/master
 from ProjectApproval import PROJECT_STATUS_CAN_CANCEL
 
 
