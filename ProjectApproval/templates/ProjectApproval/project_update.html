@@ -57,12 +57,18 @@
     <div class="col-sm-4">
         {{form.activity_time_from}}
     </div>
+    {% if form.activity_time_from.errors %}
+        <p class="text-danger">{{form.activity_time_from.errors.as_text}}</p>
+    {% endif %}
     <div class="col-sm-2">
         <label class="control-label">{{form.activity_time_to.label}}:</label>
     </div>
     <div class="col-sm-4">
         {{form.activity_time_to}}
     </div>
+    {% if form.activity_time_to.errors %}
+        <p class="text-danger">{{form.activity_time_to.errors.as_text}}</p>
+    {% endif %}
 </div> 
 <!--line 5-->
 <div class="form-group" >
