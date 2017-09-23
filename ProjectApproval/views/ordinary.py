@@ -111,7 +111,7 @@ class ProjectUpdate(ProjectBase, UpdateView):
         if not allowed_status:
             return HttpResponseForbidden()
         return super(ProjectUpdate, self).post(request, *args, **kwargs)
-
+        
     def get_context_data(self, **kwargs):
         kwargs['back_url'] = self.success_url
         kwargs['form_post_url'] = self.form_post_url
