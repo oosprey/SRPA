@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 09:49
-# Last modified: 2017-09-23 10:07
+# Last modified: 2017-09-23 10:13
 # Filename: utils.py
 # Description:
 import os.path as osp
@@ -157,6 +157,8 @@ def export_project(project, max_budget_row=5):
     sheet.row(15 + max_budget_row).height_mismatch = True
     sheet.row(15 + max_budget_row).height = 1200
 
-    save_path = osp.join(settings.TMP_FILES_ROOT, 'tmp.xls')
+    fname = '{}.xls'.format(project.uid)
+    save_path = osp.join(settings.TMP_FILES_ROOT, fname)
     book.save(save_path)
-    return save_path
+    url_path = osp.join(settings.TMP_FILES_URL, fname)
+    return url_path
