@@ -11,13 +11,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .ordinary import ProjectList, ProjectUpdate, ProjectDetail
 
 
+from ProjectApproval.models import Project
+
+
 #  TODO: LoginRequiredMixin --> PermissionRequiredMixin
 class AdminProjectBase(LoginRequiredMixin):
     """
     A base view for all project actions. SHOULD NOT DIRECTLY USE THIS.
     """
 
-    pass
+    model = Project
 
 
 class AdminProjectList(AdminProjectBase, ProjectList):
@@ -25,7 +28,13 @@ class AdminProjectList(AdminProjectBase, ProjectList):
     A view for displaying projects list for admin. GET only.
     """
 
-    pass
+    paginate_by = 12
+    ordering = '-activity_time_from'
+    template = 'ProjectApproval/project_list.html'
+
+    def get_queryset(self):
+        workshops = self.request.user.user_info.teacher_info.workshop_set.all()
+        return super().get_queryset().filter(workshop__in=workshops)
 
 
 class AdminProjectDetail(AdminProjectBase, ProjectDetail):
