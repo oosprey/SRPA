@@ -15,6 +15,7 @@ from django.http import JsonResponse, HttpResponseForbidden
 from ProjectApproval import PROJECT_STATUS_CAN_CHECK, PROJECT_SUBMITTED
 from ProjectApproval import PROJECT_APPROVED, PROJECT_EDITTING
 from ProjectApproval import PROJECT_TERMINATED
+from ProjectApproval.models import Project
 
 
 #  TODO: LoginRequiredMixin --> PermissionRequiredMixin
