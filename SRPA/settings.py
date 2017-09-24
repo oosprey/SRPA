@@ -110,7 +110,7 @@ DATABASES = {
         'NAME': 'SRPA',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '192.168.2.169',
+        'HOST': '192.168.2.167',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',
