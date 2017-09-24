@@ -39,6 +39,4 @@ urlpatterns = [
         namespace='reservation')),
     url(r'^project/', include('ProjectApproval.urls',
         namespace='project')),
-    url(r'^media/tmp_files/(?P<path>.+)$',
-        serve, {'document_root': settings.TMP_FILES_ROOT}),
 ]
