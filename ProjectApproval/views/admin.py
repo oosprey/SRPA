@@ -18,6 +18,8 @@ from ProjectApproval import PROJECT_TERMINATED
 from const.models import FeedBack
 
 #  TODO: LoginRequiredMixin --> PermissionRequiredMixin
+
+
 class AdminProjectBase(LoginRequiredMixin):
     """
     A base view for all project actions. SHOULD NOT DIRECTLY USE THIS.

@@ -23,6 +23,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf import settings
+from django.views.static import serve
 
 from authentication import views
 
@@ -37,4 +39,6 @@ urlpatterns = [
         namespace='reservation')),
     url(r'^project/', include('ProjectApproval.urls',
         namespace='project')),
+    url(r'^media/tmp_files/(?P<path>.+)$',
+        serve, {'document_root': settings.TMP_FILES_ROOT}),
 ]

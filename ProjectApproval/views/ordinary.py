@@ -15,7 +15,7 @@ from django.http import Http404, JsonResponse, HttpResponseRedirect
 from django.http import HttpResponse
 from django.http import HttpResponseForbidden
 from django.template.loader import render_to_string
-from django.shortcuts import redirect  
+from django.shortcuts import redirect
 
 from ProjectApproval import PROJECT_STATUS, PROJECT_SUBMITTED
 from ProjectApproval import PROJECT_HASSOCIAL
@@ -162,7 +162,7 @@ class ProjectUpdate(ProjectBase, UpdateView):
         if not allowed_status:
             return HttpResponseForbidden()
         return super(ProjectUpdate, self).post(request, *args, **kwargs)
-        
+
     def get_context_data(self, **kwargs):
         kwargs['back_url'] = self.success_url
         kwargs['form_post_url'] = self.form_post_url
