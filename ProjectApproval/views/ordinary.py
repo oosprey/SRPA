@@ -15,6 +15,8 @@ from django.http import Http404, JsonResponse, HttpResponseRedirect
 from django.http import HttpResponse
 from django.http import HttpResponseForbidden
 from django.template.loader import render_to_string
+from django.shortcuts import redirect  
+
 from ProjectApproval import PROJECT_STATUS, PROJECT_SUBMITTED
 from ProjectApproval import PROJECT_HASSOCIAL
 from ProjectApproval.forms import ActivityForm, SocialInvitationForm
@@ -23,6 +25,7 @@ from const.models import Workshop
 from authentication.models import UserInfo
 from authentication import USER_IDENTITIES
 from ProjectApproval import PROJECT_STATUS_CAN_EDIT
+from ProjectApproval.utils import export_project
 
 
 #  TODO: LoginRequiredMixin --> PermissionRequiredMixin
@@ -159,7 +162,7 @@ class ProjectUpdate(ProjectBase, UpdateView):
         if not allowed_status:
             return HttpResponseForbidden()
         return super(ProjectUpdate, self).post(request, *args, **kwargs)
-
+        
     def get_context_data(self, **kwargs):
         kwargs['back_url'] = self.success_url
         kwargs['form_post_url'] = self.form_post_url
@@ -186,3 +189,13 @@ class ProjectUpdate(ProjectBase, UpdateView):
             self.template_name, request=self.request,
             context=context)
         return JsonResponse({'status': 1, 'reason': '无效输入', 'html': html})
+
+
+class ProjectExport(ProjectBase, DetailView):
+
+    slug_field = 'uid'
+    slug_url_kwarg = 'uid'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return redirect(export_project(self.object))

@@ -17,7 +17,6 @@ from ProjectApproval import PROJECT_APPROVED, PROJECT_EDITTING
 from ProjectApproval import PROJECT_TERMINATED
 from const.models import FeedBack
 
-
 #  TODO: LoginRequiredMixin --> PermissionRequiredMixin
 class AdminProjectBase(LoginRequiredMixin):
     """
