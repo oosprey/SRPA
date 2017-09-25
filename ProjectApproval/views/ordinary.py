@@ -26,6 +26,7 @@ from authentication.models import UserInfo
 from authentication import USER_IDENTITIES
 from ProjectApproval import PROJECT_STATUS_CAN_EDIT
 from ProjectApproval.utils import export_project
+from const.models import FeedBack
 
 
 #  TODO: LoginRequiredMixin --> PermissionRequiredMixin
@@ -59,6 +60,14 @@ class ProjectDetail(ProjectBase, DetailView):
     """
     slug_field = 'uid'
     slug_url_kwarg = 'uid'
+
+    def get_context_data(self, **kwargs):
+        feed = FeedBack.objects.filter(
+            target_uid=self.object.uid)
+        kwargs['budgets'] = [x.split(' ') for x in
+                             self.object.budget.split('\n')]
+        kwargs['feed'] = feed
+        return super(ProjectDetail, self).get_context_data(**kwargs)
 
 
 class ProjectAdd(ProjectBase, CreateView):
@@ -110,8 +119,8 @@ class ProjectSocialAdd(ProjectBase, CreateView):
         return self.render_to_response(self.get_context_data(**kwargs))
 
     def get_context_data(self, **kwargs):
-        kwargs['form_post_url'] = reverse_lazy('project:ordinary:social_add',
-                                               args=(kwargs['uid'],))
+        kwargs['form_post_url'] = reverse('project:ordinary:social_add',
+                                          args=(kwargs['uid'],))
         kwargs['back_url'] = self.success_url
         return super(ProjectSocialAdd, self).get_context_data(**kwargs)
 
