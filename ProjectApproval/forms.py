@@ -4,7 +4,6 @@ from django.contrib.admin import widgets
 from django.forms.extras.widgets import SelectDateWidget
 from ProjectApproval.models import Project
 from ProjectApproval.models import SocialInvitation
-import types
 
 
 class ActivityForm(ModelForm):
