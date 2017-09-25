@@ -4,6 +4,7 @@ from django.contrib.admin import widgets
 from django.forms.extras.widgets import SelectDateWidget
 from ProjectApproval.models import Project
 from ProjectApproval.models import SocialInvitation
+import re
 
 
 class ActivityForm(ModelForm):
@@ -49,25 +50,18 @@ class ActivityForm(ModelForm):
         t1 = cleaned_data.get('activity_time_from')
         t2 = cleaned_data.get('activity_time_to')
         budget = cleaned_data.get('budget')
-        budgets = [x.strip().split(' ') for x in budget.split('\n')]
+        budgets = [x.strip() for x in budget.split('\n')]
         for y in budgets:
-            if len(y) > 3:
+            result = re.match(r'(.*)(\S+)\s(\d+)\s(\S+)(.*)', y)
+            if result:
+                pass
+            else:
                 if 'budget' in errors:
-                    errors['budget'].append('请按照‘项目 预算 说明’格式填写')
+                    errors['budget'].append('请按照‘项目 预算 说明’格式填写,其中预算为整数')
                     break
                 else:
-                    errors['budget'] = ['请按照‘项目 预算 说明’格式填写']
+                    errors['budget'] = ['请按照‘项目 预算 说明’格式填写,其中预算为整数']
                     break
-            else:
-                try:
-                    int(y[1])
-                except ValueError:
-                    if 'budget' in errors:
-                        errors['budget'].append('预算必须为整数')
-                        break
-                    else:
-                        errors['budget'] = ['预算必须为整数']
-                        break
         if t2 <= t1:
             if 'activity_time_to' in errors:
                 errors['activity_time_to'].append('活动结束时间应晚于开始时间')
