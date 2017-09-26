@@ -21,7 +21,7 @@
         <td>
             {% if request.user.user_info.identity == USER_IDENTITY_STUDENT %}
         	<a type="button" class="btn btn-info btn-xs srpa-loader" loader-type='page' loader-target="{% url 'project:ordinary:detail' sheet.uid %}">详情</a>
-            {% if sheet.status == PROJECT_APPROVED %}
+            {% if sheet.status in PROJECT_STATUS_CAN_EXPORT %}
             <a type="button" class="btn btn-info btn-xs " href='{% url 'project:ordinary:export' sheet.uid %}'>导出</a>
             {% endif %}
             {% endif %}

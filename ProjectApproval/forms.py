@@ -52,7 +52,7 @@ class ActivityForm(ModelForm):
         budget = cleaned_data.get('budget')
         budgets = [x.strip() for x in budget.split('\n')]
         for y in budgets:
-            result = re.match(r'(.*)(\S+)\s(\d+)\s(\S+)(.*)', y)
+            result = re.match(r'^(\S+?)\s(\d+?)\s(\S+?)$', y)
             if result:
                 pass
             else:
