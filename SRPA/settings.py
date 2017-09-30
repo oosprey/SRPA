@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:05
-# Last modified: 2017-09-23 10:13
+# Last modified: 2017-09-29 17:59
 # Filename: settings.py
 # Description:
 """
@@ -36,7 +36,7 @@ SECRET_KEY = 'v_&4b1seyjht1+vl6c08)&7is*srv_0lqg4t^%0f71o19r5%yu'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '192.168.2.169',
+    '192.168.3.93',
     '127.0.0.1',
 ]
 
@@ -110,7 +110,7 @@ DATABASES = {
         'NAME': 'SRPA',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
+        'HOST': '192.168.3.95',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',
