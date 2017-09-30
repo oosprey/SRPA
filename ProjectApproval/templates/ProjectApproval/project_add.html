@@ -144,7 +144,7 @@
     {% endif %}
 </div>    
 <!--line 8-->
-<div class="form-group" >
+<div class="form-group" data-toggle="tooltip" data-placement="top" title="预算及说明请按照‘项目名（空格）预算金额（空格）说明’填写">
     <div class="col-sm-2">
         <label class="control-label">{{form.budget.label}}:</label>
     </div>
@@ -154,9 +154,6 @@
     {% if form.budget.errors %}
         <p class="text-danger">{{form.budget.errors.as_text}}</p>
     {% endif %}
-    <div class="form-group" >
-        <p class="col-sm-10">*注: 预算及说明请按照‘项目名（空格）预算金额（空格）说明’填写</p>
-    </div>
 </div> 
 {% if form.errors %}
 {% for error in form.non_field_errors %}
