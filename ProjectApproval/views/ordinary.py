@@ -98,7 +98,7 @@ class ProjectAdd(ProjectBase, CreateView):
         html = render_to_string(
             self.template_name, request=self.request,
             context=context)
-        return JsonResponse({'status': 1, 'html': html})
+        return JsonResponse({'status': 1, 'reason': '表单填写有错误', 'html': html})
 
 
 class ProjectSocialAdd(ProjectBase, CreateView):
@@ -142,7 +142,7 @@ class ProjectSocialAdd(ProjectBase, CreateView):
         html = render_to_string(
             self.template_name, request=self.request,
             context=context)
-        return JsonResponse({'status': 1, 'reason': '无效输入', 'html': html})
+        return JsonResponse({'status': 1, 'reason': '表单填写有错误', 'html': html})
 
 
 class ProjectUpdate(ProjectBase, UpdateView):
@@ -197,7 +197,7 @@ class ProjectUpdate(ProjectBase, UpdateView):
         html = render_to_string(
             self.template_name, request=self.request,
             context=context)
-        return JsonResponse({'status': 1, 'reason': '无效输入', 'html': html})
+        return JsonResponse({'status': 1, 'reason': '表单填写有错误', 'html': html})
 
 
 class ProjectExport(ProjectBase, DetailView):
