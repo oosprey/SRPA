@@ -64,7 +64,7 @@ class ProjectDetail(ProjectBase, DetailView):
     def get_context_data(self, **kwargs):
         feed = FeedBack.objects.filter(
             target_uid=self.object.uid)
-        kwargs['budgets'] = [x.split(' ') for x in
+        kwargs['budgets'] = [x.strip().split(' ') for x in
                              self.object.budget.split('\n')]
         kwargs['feed'] = feed
         return super(ProjectDetail, self).get_context_data(**kwargs)
