@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:05
-# Last modified: 2017-10-01 15:21
+# Last modified: 2017-10-01 15:37
 # Filename: settings.py
 # Description:
 """
@@ -152,6 +152,6 @@ LOGIN_REDIRECT_URL = reverse_lazy('index')
 
 phase = os.getenv('SRPA_SETTINGS', 'development')
 if phase == 'production':
-    from production_settings import DATABASES
+    from SRPA.production_settings import DATABASES
 else:
-    from development_settings import DATABASES
+    from SRPA.development_settings import DATABASES
