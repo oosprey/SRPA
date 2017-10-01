@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:05
-# Last modified: 2017-09-29 17:59
+# Last modified: 2017-10-01 15:21
 # Filename: settings.py
 # Description:
 """
@@ -37,6 +37,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '192.168.3.93',
+    '192.168.3.95',
     '127.0.0.1',
 ]
 
@@ -101,24 +102,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'SRPA.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'SRPA',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '192.168.3.95',
-        'PORT': '3306',
-        'OPTIONS': {
-            'sql_mode': 'STRICT_TRANS_TABLES',
-        }
-    }
-}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -166,3 +149,9 @@ CAPTCHA_TIMEOUT = 1
 TITLE = '场地预约与活动审批系统'
 LOGIN_URL = reverse_lazy('auth:login')
 LOGIN_REDIRECT_URL = reverse_lazy('index')
+
+phase = os.getenv('SRPA_SETTINGS', 'development')
+if phase == 'production':
+    from production_settings import DATABASES
+else:
+    from development_settings import DATABASES
