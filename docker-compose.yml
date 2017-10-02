@@ -10,8 +10,6 @@ services:
             - MYSQL_DATABASE=SRPA
         ports:
             - "3308:3306"
-        logging:
-            driver: none
         healthcheck:
             test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
             timeout: 5s
@@ -24,8 +22,8 @@ services:
                 condition: service_healthy
         links:
             - db:db
-        volumes:
-            - /SRPA
+        expose:
+            - "8000"
     nginx:
         restart: always
         build: ./nginx
