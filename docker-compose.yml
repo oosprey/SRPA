@@ -10,7 +10,7 @@ services:
             - MYSQL_ROOT_PASSWORD=root
             - MYSQL_DATABASE=SRPA
         ports:
-            - "3307:3306"
+            - "3308:3306"
         logging:
             driver: none
         healthcheck:
@@ -22,8 +22,6 @@ services:
         container_name: SRPA_django
         image: youchend/srpa_django
         build: .
-        environment:
-            - SRPA_SETTINGS=production
         ports:
             - "8000:8000"
         depends_on:
@@ -31,4 +29,3 @@ services:
                 condition: service_healthy
         links:
             - db:db
-        entrypoint: /entrypoint.sh
