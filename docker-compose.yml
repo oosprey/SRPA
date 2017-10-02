@@ -17,6 +17,7 @@ services:
     web:
         restart: always
         build: ./web
+        image: youchendu/srpa_web
         depends_on:
             db:
                 condition: service_healthy
@@ -27,6 +28,7 @@ services:
     nginx:
         restart: always
         build: ./nginx
+        image: youchendu/srpa_nginx
         ports:
             - "80:8000"
         links:
