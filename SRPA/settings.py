@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:05
-# Last modified: 2017-10-02 10:22
+# Last modified: 2017-10-02 22:16
 # Filename: settings.py
 # Description:
 """
@@ -32,8 +32,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'v_&4b1seyjht1+vl6c08)&7is*srv_0lqg4t^%0f71o19r5%yu'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = [
     '192.168.3.93',

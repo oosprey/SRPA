@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-10-01 15:16
-# Last modified: 2017-10-02 09:19
+# Last modified: 2017-10-02 22:16
 # Filename: production_settings.py
 # Description:
 # Database
@@ -22,3 +22,6 @@ DATABASES = {
         }
     }
 }
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
