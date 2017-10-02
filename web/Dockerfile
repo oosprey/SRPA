@@ -4,6 +4,7 @@ USER root
 
 RUN git clone https://github.com/Time1ess/SRPA
 RUN mkdir /SRPA/media
+RUN mkdir /SRPA/media/tmp_files
 RUN pip install -r SRPA/requirements.txt
 
 ADD entrypoint.sh /entrypoint.sh
