@@ -19,20 +19,18 @@ services:
     web:
         restart: always
         build: ./web
-        ports:
-            - "8000:8000"
         depends_on:
             db:
                 condition: service_healthy
         links:
             - db:db
+        volumes:
+            - /SRPA
     nginx:
         restart: always
         build: ./nginx
         ports:
-            - "80:80"
-        depends_on:
-            - web
+            - "80:8000"
         links:
             - web:web
         volumes_from:
