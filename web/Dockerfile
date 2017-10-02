@@ -11,7 +11,5 @@ RUN pip install -r SRPA/requirements.txt
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod a+x /entrypoint.sh
 
-EXPOSE 8000
-
 ENV SRPA_SETTINGS production
 ENTRYPOINT ["/entrypoint.sh"]
