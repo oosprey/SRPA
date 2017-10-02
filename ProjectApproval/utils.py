@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 09:49
-# Last modified: 2017-09-24 10:01
+# Last modified: 2017-10-02 11:24
 # Filename: utils.py
 # Description:
 import os.path as osp
@@ -12,6 +12,8 @@ from uuid import uuid4
 from datetime import datetime
 
 from django.conf import settings
+from django.utils.timezone import get_current_timezone
+
 from xlwt import Workbook, easyxf, Alignment, Borders
 
 
@@ -76,6 +78,7 @@ signature_style.borders = borders_thin
 
 
 def export_project(project, max_budget_row=5):
+    tz = get_current_timezone()
     book = Workbook(encoding='utf-8')
     sheet = book.add_sheet('sheet1')
     sheet.footer_str = b''
@@ -89,8 +92,11 @@ def export_project(project, max_budget_row=5):
     sheet.write_merge(2, 2, 0, 1, '活动地点', style=header_style)
     sheet.write_merge(2, 2, 2, 5, project.site, style=header_style)
     sheet.write_merge(2, 2, 6, 7, '活动时间', style=header_style)
+    time_from = project.activity_time_from.astimezone(tz)
+    time_to = project.activity_time_to.astimezone(tz)
     activity_time = '开始:{}\n结束:{}'.format(
-        project.activity_time_from, project.activity_time_to)
+        time_from.strftime('%Y年%m月%d日 %H:%M'),
+        time_to.strftime('%Y年%m月%d日 %H:%M'))
     sheet.write_merge(2, 2, 8, 11, activity_time, style=header_style)
     sheet.write_merge(3, 3, 0, 1, '活动负责人', style=header_style)
     sheet.write_merge(3, 3, 2, 5, project.user.first_name, style=header_style)
