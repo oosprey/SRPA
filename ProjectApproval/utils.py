@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 09:49
-# Last modified: 2017-10-02 14:35
+# Last modified: 2017-10-03 15:59
 # Filename: utils.py
 # Description:
 import os.path as osp
@@ -156,7 +156,6 @@ def add_social_page(project, sheet, row=0):
     __fit(sheet, row, 12, start_row + 1)
     sheet.row(row).height_mismatch = True
     sheet.row(row).height = 1200
-
 
 
 def export_project(project, max_budget_row=5, row=0):
