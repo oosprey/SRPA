@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 09:05
-# Last modified: 2017-09-29 17:59
+# Last modified: 2017-10-04 21:42
 # Filename: settings.py
 # Description:
 """
@@ -21,9 +21,11 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 from django.urls import reverse_lazy
+from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PHASE = os.getenv('SRPA_SETTINGS', 'development')
 
 
 # Quick-start development settings - unsuitable for production
@@ -32,11 +34,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'v_&4b1seyjht1+vl6c08)&7is*srv_0lqg4t^%0f71o19r5%yu'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = [
     '192.168.3.93',
+    '192.168.3.95',
     '127.0.0.1',
 ]
 
@@ -89,7 +90,6 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'SRPA.context_processors.expose_settings',
                 'authentication.context_processors.expose_consts',
                 'SiteReservation.context_processors.expose_consts',
                 'ProjectApproval.context_processors.expose_consts',
@@ -99,24 +99,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'SRPA.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'SRPA',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '192.168.3.95',
-        'PORT': '3306',
-        'OPTIONS': {
-            'sql_mode': 'STRICT_TRANS_TABLES',
-        }
-    }
-}
 
 
 # Password validation
@@ -129,7 +111,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'zh-hans'
+LANGUAGE_CODE = 'zh-Hans'
+LANGUAGES = (
+    ('en', _('English')),
+    ('zh-Hans', _('Simplified Chinese')),
+)
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 TIME_ZONE = 'Asia/Shanghai'
 
@@ -139,22 +128,33 @@ USE_L10N = True
 
 USE_TZ = True
 
+if PHASE == 'production':
+    from SRPA.production_settings import DATABASES
+else:
+    from SRPA.development_settings import DATABASES
+    DEBUG = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'global_static'),
 ]
 
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+if not os.path.exists(MEDIA_ROOT):
+    os.makedirs(MEDIA_ROOT)
+
 TMP_FILES_ROOT = os.path.join(MEDIA_ROOT, 'tmp_files')
 TMP_FILES_URL = os.path.join(MEDIA_URL, 'tmp_files')
 
+if not os.path.exists(TMP_FILES_ROOT):
+    os.makedirs(TMP_FILES_ROOT)
 
 # Captcha settings
 CAPTCHA_CHALLENGE_FUNCT = 'authentication.captchas.random_num_challenge'
@@ -163,6 +163,5 @@ CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_dots',)
 CAPTCHA_TIMEOUT = 1
 
 # Context variables related to SRPA
-TITLE = '场地预约与活动审批系统'
 LOGIN_URL = reverse_lazy('auth:login')
 LOGIN_REDIRECT_URL = reverse_lazy('index')
