@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-04 21:55+0800\n"
+"POT-Creation-Date: 2017-10-05 09:27+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -272,7 +272,7 @@ msgstr "预算备注"
 #: ProjectApproval/templates/ProjectApproval/project_detail.html:122
 #: ProjectApproval/templates/ProjectApproval/project_detail.html:170
 #: SiteReservation/templates/SiteReservation/reservation_detail.html:93
-#: const/models.py:55
+#: const/models.py:56
 msgid "Audit Opinion"
 msgstr "审核意见"
 
@@ -496,7 +496,7 @@ msgstr "请选择一个未来时间"
 msgid "Wrong form data, Please check again"
 msgstr "表达信息有误，请再次核对"
 
-#: authentication/forms.py:22 authentication/forms.py:49 const/models.py:67
+#: authentication/forms.py:22 authentication/forms.py:49 const/models.py:68
 msgid "Captcha"
 msgstr "验证码"
 
@@ -650,11 +650,14 @@ msgstr "被审阅对象"
 msgid "Audit Time"
 msgstr "审核时间"
 
-#: const/models.py:58 const/models.py:59
+#: const/models.py:59 const/models.py:60
 msgid "Audit Feedback"
 msgstr "审核意见"
 
-#: const/models.py:62
+#: const/models.py:63
 #, python-brace-format
 msgid "Audit Feedback on {target} by {user}"
 msgstr "{user} 对 {target} 的审阅意见"
+
+#~ msgid "Copyright &copy; 2017 - 2019 SIE, All Rights Reserved."
+#~ msgstr "版权声明: &copy; 2017 - 2019 创新创业学院 保留所有权利"
