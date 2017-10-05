@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 09:03
-# Last modified: 2017-10-04 15:20
+# Last modified: 2017-10-05 10:17
 # Filename: ordinary.py
 # Description:
 from uuid import UUID
@@ -21,6 +21,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
+from guardian.mixins import PermissionRequiredMixin, PermissionListMixin
 
 from authentication import USER_IDENTITY_STUDENT, USER_IDENTITY_TEACHER
 from authentication import USER_IDENTITY_ADMIN
@@ -33,7 +34,6 @@ from const.models import Site, FeedBack
 from tools.utils import assign_perms
 
 
-#  TODO: LoginRequiredMixin --> PermissionRequiredMixin
 class ReservationBase(LoginRequiredMixin):
     """
     A base view for all reservation actions. SHOULD NOT DIRECTLY USE THIS.
