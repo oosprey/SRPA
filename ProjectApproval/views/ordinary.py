@@ -76,7 +76,7 @@ class ProjectAdd(ProjectBase, CreateView):
     """
     A view for creating a new project.
     """
-    template_name = 'ProjectApproval/Post_form.html'
+    template_name = 'ProjectApproval/project_form.html'
     form_class = ActivityForm
     success_url = reverse_lazy('project:index')
     form_post_url = 'project:ordinary:add'
@@ -152,7 +152,7 @@ class ProjectUpdate(ProjectBase, UpdateView):
     A view for updating an exist project. Should check status before
     change, reject change if not match specified status.
     """
-    template_name = 'ProjectApproval/Post_form.html'
+    template_name = 'ProjectApproval/project_form.html'
     slug_field = 'uid'
     slug_url_kwarg = 'uid'
     form_class = ActivityForm
