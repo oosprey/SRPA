@@ -82,7 +82,7 @@ class ProjectAdd(ProjectBase, CreateView):
     form_post_url = 'project:ordinary:add'
 
     def get_context_data(self, **kwargs):
-        kwargs['form_post_url'] = self.form_post_url
+        kwargs['form_post_url'] = reverse(self.form_post_url)
         kwargs['back_url'] = self.success_url
         return super(CreateView, self).get_context_data(**kwargs)
 
@@ -100,7 +100,7 @@ class ProjectAdd(ProjectBase, CreateView):
         html = render_to_string(
             self.template_name, request=self.request,
             context=context)
-        return JsonResponse({'status': 1, 'reason': '表单填写有错误', 'html': html})
+        return JsonResponse({'status': 1, 'html': html})
 
 
 class ProjectSocialAdd(ProjectBase, CreateView):
