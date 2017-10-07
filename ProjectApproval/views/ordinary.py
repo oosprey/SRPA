@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-09 09:17
-# Last modified: 2017-10-04 16:09
+# Last modified: 2017-10-05 10:01
 # Filename: ordinary.py
 # Description:
 from django.views.generic import ListView, CreateView, UpdateView, RedirectView
@@ -17,6 +17,7 @@ from django.http import HttpResponseForbidden
 from django.template.loader import render_to_string
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
+from guardian.mixins import PermissionRequiredMixin, PermissionListMixin
 
 from ProjectApproval import PROJECT_STATUS, PROJECT_SUBMITTED
 from ProjectApproval import PROJECT_SOCIALFORM_REQUIRED
@@ -31,7 +32,6 @@ from ProjectApproval.utils import export_project
 from const.models import FeedBack
 
 
-#  TODO: LoginRequiredMixin --> PermissionRequiredMixin
 class ProjectBase(LoginRequiredMixin):
     """
     A base view for all project actions. SHOULD NOT DIRECTLY USE THIS.
