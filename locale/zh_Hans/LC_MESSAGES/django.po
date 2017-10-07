@@ -88,7 +88,7 @@ msgstr "预算描述"
 
 #: ProjectApproval/forms.py:30 ProjectApproval/models.py:49
 #: SiteReservation/models.py:37
-#: SiteReservation/templates/SiteReservation/reservation_detail.html:46
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:72
 msgid "Comment"
 msgstr "备注"
 
@@ -100,7 +100,7 @@ msgstr "活动内容"
 #: ProjectApproval/templates/ProjectApproval/project_detail.html:51
 #: ProjectApproval/templates/ProjectApproval/project_list.html:8
 #: SiteReservation/forms.py:32 SiteReservation/models.py:32
-#: SiteReservation/templates/SiteReservation/reservation_detail.html:22
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:48
 #: SiteReservation/templates/SiteReservation/reservation_list.html:6
 msgid "Activity Time From"
 msgstr "活动开始时间"
@@ -109,7 +109,7 @@ msgstr "活动开始时间"
 #: ProjectApproval/templates/ProjectApproval/project_detail.html:57
 #: ProjectApproval/templates/ProjectApproval/project_list.html:9
 #: SiteReservation/forms.py:37 SiteReservation/models.py:34
-#: SiteReservation/templates/SiteReservation/reservation_detail.html:28
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:54
 #: SiteReservation/templates/SiteReservation/reservation_list.html:7
 msgid "Activity Time To"
 msgstr "活动结束时间"
@@ -264,13 +264,13 @@ msgstr "预算备注"
 
 #: ProjectApproval/templates/ProjectApproval/project_detail.html:122
 #: ProjectApproval/templates/ProjectApproval/project_detail.html:170
-#: SiteReservation/templates/SiteReservation/reservation_detail.html:93
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:121
 #: const/models.py:56
 msgid "Audit Opinion"
 msgstr "审核意见"
 
 #: ProjectApproval/templates/ProjectApproval/project_detail.html:143
-#: SiteReservation/templates/SiteReservation/reservation_detail.html:72
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:100
 msgid "Update"
 msgstr "修改"
 
@@ -280,8 +280,8 @@ msgstr "确定取消该活动申请吗"
 
 #: ProjectApproval/templates/ProjectApproval/project_detail.html:146
 #: ProjectApproval/templates/ProjectApproval/project_detail.html:179
-#: SiteReservation/templates/SiteReservation/reservation_detail.html:75
-#: SiteReservation/templates/SiteReservation/reservation_detail.html:102
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:103
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:130
 msgid "Cancel"
 msgstr "取消"
 
@@ -290,17 +290,17 @@ msgid "Fill Additional Form"
 msgstr "填写附加表单"
 
 #: ProjectApproval/templates/ProjectApproval/project_detail.html:152
-#: SiteReservation/templates/SiteReservation/reservation_detail.html:78
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:106
 msgid "Export"
 msgstr "导出"
 
 #: ProjectApproval/templates/ProjectApproval/project_detail.html:158
-#: SiteReservation/templates/SiteReservation/reservation_detail.html:82
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:110
 msgid "Audit"
 msgstr "审核"
 
 #: ProjectApproval/templates/ProjectApproval/project_detail.html:180
-#: SiteReservation/templates/SiteReservation/reservation_detail.html:103
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:131
 msgid "Confirm"
 msgstr "确认"
 
@@ -329,9 +329,9 @@ msgid "Detail"
 msgstr "详情"
 
 #: ProjectApproval/views/admin.py:81 ProjectApproval/views/admin.py:84
-#: ProjectApproval/views/admin.py:98 SiteReservation/views/admin.py:91
-#: SiteReservation/views/admin.py:94 SiteReservation/views/admin.py:115
-#: SiteReservation/views/ordinary.py:73
+#: ProjectApproval/views/admin.py:98 SiteReservation/views/admin.py:97
+#: SiteReservation/views/admin.py:100 SiteReservation/views/admin.py:121
+#: SiteReservation/views/ordinary.py:74
 msgid "Illegal Input"
 msgstr "无效输入"
 
@@ -420,13 +420,13 @@ msgid "Can only reserve within a day"
 msgstr "只能预约同一天的时间段"
 
 #: SiteReservation/models.py:26
-#: SiteReservation/templates/SiteReservation/reservation_detail.html:40
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:66
 #: SiteReservation/templates/SiteReservation/reservation_list.html:9
 msgid "Status"
 msgstr "状态"
 
 #: SiteReservation/models.py:36
-#: SiteReservation/templates/SiteReservation/reservation_detail.html:34
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:60
 #: SiteReservation/templates/SiteReservation/reservation_list.html:8
 msgid "Reservation Time"
 msgstr "预约时间"
@@ -448,15 +448,35 @@ msgstr "新的预约"
 msgid "Workshop Reservations"
 msgstr "工坊预约"
 
-#: SiteReservation/templates/SiteReservation/reservation_detail.html:16
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:17
+msgid "Student Name"
+msgstr "学生姓名"
+
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:23
+#: authentication/models.py:43
+#: authentication/templates/authentication/student_info_detail.html:15
+msgid "Student ID"
+msgstr "学号"
+
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:29
+#: authentication/models.py:44
+#: authentication/templates/authentication/student_info_detail.html:21
+msgid "Institute"
+msgstr "学院"
+
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:35
+msgid "Student Phone"
+msgstr "学生电话"
+
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:42
 msgid "Activity Title"
 msgstr "活动内容"
 
-#: SiteReservation/templates/SiteReservation/reservation_detail.html:53
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:79
 msgid "Feedback"
 msgstr "审核意见"
 
-#: SiteReservation/templates/SiteReservation/reservation_detail.html:75
+#: SiteReservation/templates/SiteReservation/reservation_detail.html:103
 msgid "Are you sure you want to cancel the reservation"
 msgstr "确定取消该预约吗"
 
@@ -484,16 +504,16 @@ msgstr "可预约"
 msgid "Not Available"
 msgstr "已预约"
 
-#: SiteReservation/views/admin.py:103 SiteReservation/views/ordinary.py:170
-#: SiteReservation/views/ordinary.py:242
+#: SiteReservation/views/admin.py:109 SiteReservation/views/ordinary.py:187
+#: SiteReservation/views/ordinary.py:259
 msgid "Conflict with existing reservation"
 msgstr "与已存在的预约信息冲突"
 
-#: SiteReservation/views/ordinary.py:63
+#: SiteReservation/views/ordinary.py:64
 msgid "Please choose a future time"
 msgstr "请选择一个未来时间"
 
-#: SiteReservation/views/ordinary.py:93
+#: SiteReservation/views/ordinary.py:94
 msgid "Wrong form data, Please check again"
 msgstr "表达信息有误，请再次核对"
 
@@ -558,16 +578,6 @@ msgstr "身份"
 #: authentication/models.py:39
 msgid "UserInfo"
 msgstr "基本信息"
-
-#: authentication/models.py:43
-#: authentication/templates/authentication/student_info_detail.html:15
-msgid "Student ID"
-msgstr "学号"
-
-#: authentication/models.py:44
-#: authentication/templates/authentication/student_info_detail.html:21
-msgid "Institute"
-msgstr "学院"
 
 #: authentication/models.py:49 authentication/models.py:50
 msgid "StudentInfo"
@@ -718,9 +728,3 @@ msgstr "审核意见"
 #, python-brace-format
 msgid "Audit Feedback on {target} by {user}"
 msgstr "{user} 对 {target} 的审阅意见"
-
-#~ msgid "Instructor"
-#~ msgstr "指导教师"
-
-#~ msgid "Copyright &copy; 2017 - 2019 SIE, All Rights Reserved."
-#~ msgstr "版权声明: &copy; 2017 - 2019 创新创业学院 保留所有权利"
