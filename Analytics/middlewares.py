@@ -3,10 +3,10 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-10-07 21:02
-# Last modified: 2017-10-08 13:56
+# Last modified: 2017-10-08 13:59
 # Filename: middlewares.py
 # Description:
-from time import time
+import time
 
 from . import settings, backend_utils
 from .models import BehaviorFlow
