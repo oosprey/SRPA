@@ -772,15 +772,15 @@ msgstr "学生"
 
 #: const/forms.py:20
 msgid "Feedback Approve"
-msgstr "审核已通过"
+msgstr "通过"
 
 #: const/forms.py:21
 msgid "Feedback Editting"
-msgstr "审核修改中"
+msgstr "修改"
 
 #: const/forms.py:22
 msgid "Feedback teminated"
-msgstr "审核已终止"
+msgstr "终止"
 
 #: const/models.py:37
 msgid "Group"
