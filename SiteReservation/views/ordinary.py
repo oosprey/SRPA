@@ -11,7 +11,8 @@ from datetime import datetime, timedelta, timezone
 
 from django.views.generic import ListView, CreateView, UpdateView, RedirectView
 from django.views.generic import DetailView, TemplateView, FormView, View
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User, Group
 from django.http import Http404, JsonResponse, HttpResponseRedirect
 from django.http import HttpResponse
 from django.http import HttpResponseForbidden
@@ -24,7 +25,7 @@ from django.utils.translation import ugettext_lazy as _
 from guardian.mixins import PermissionRequiredMixin, PermissionListMixin
 from django import forms
 
-from authentication import USER_IDENTITY_STUDENT, USER_IDENTITY_TEACHER
+from authentication import USER_IDENTITY_STUDENT
 from authentication import USER_IDENTITY_ADMIN
 from SiteReservation import RESERVATION_APPROVED, RESERVATION_CANCELLED
 from SiteReservation import RESERVATION_SUBMITTED, RESERVATION_STATUS_CAN_EDIT
@@ -35,19 +36,24 @@ from const.models import Site, FeedBack
 from tools.utils import assign_perms
 
 
-class ReservationBase(LoginRequiredMixin):
+class ReservationBase(UserPassesTestMixin):
     """
     A base view for all reservation actions. SHOULD NOT DIRECTLY USE THIS.
     """
-
     model = Reservation
+    raise_exception = True
+
+    def test_func(self):
+        user = self.request.user
+        return user.is_authenticated and \
+            user.user_info.identity == USER_IDENTITY_STUDENT
 
 
-class ReservationIndex(ReservationBase, TemplateView):
+class ReservationIndex(TemplateView):
     template_name = 'SiteReservation/index.html'
 
 
-class ReservationStatus(ReservationBase, FormView):
+class ReservationStatus(FormView):
     template_name = 'SiteReservation/reservation_status.html'
     status_table_name = 'SiteReservation/status_table.html'
     form_class = DateForm
@@ -95,10 +101,11 @@ class ReservationStatus(ReservationBase, FormView):
                                                       'Please check again')})
 
 
-class ReservationList(ReservationBase, ListView):
+class ReservationList(ReservationBase, PermissionListMixin, ListView):
     """
     A view for displaying user-related reservations list. GET only.
     """
+    permission_required = 'view_reservation'
     paginate_by = 10
     ordering = ['status', '-reservation_time']
 
@@ -106,23 +113,29 @@ class ReservationList(ReservationBase, ListView):
         return super().get_queryset().filter(user=self.request.user)
 
 
-class ReservationCancel(ReservationBase, View):
+class ReservationCancel(ReservationBase, PermissionRequiredMixin, DetailView):
     """
     A view for displaying user-related reservations list after terminating.
     """
-
+    raise_exception = True
+    permission_required = 'view_reservation'
     success_url = reverse_lazy('reservation:index')
+    slug_field = 'uid'
+    slug_url_kwarg = 'uid'
 
     def get(self, request, *args, **kwargs):
-        reservation = Reservation.objects.filter(uid=kwargs['uid'])
-        reservation.update(status=RESERVATION_CANCELLED)
+        self.object = self.get_object()
+        self.object.status = RESERVATION_CANCELLED
+        self.object.save()
         return redirect(self.success_url)
 
 
-class ReservationExport(ReservationBase, DetailView):
+class ReservationExport(ReservationBase, PermissionRequiredMixin, DetailView):
     """
     A view for exporting reservation application
     """
+    raise_exception = True
+    permission_required = 'view_reservation'
     slug_field = 'uid'
     slug_url_kwarg = 'uid'
 
@@ -131,11 +144,12 @@ class ReservationExport(ReservationBase, DetailView):
         return redirect(export_reservation(self.object))
 
 
-class ReservationDetail(ReservationBase, DetailView):
+class ReservationDetail(ReservationBase, PermissionRequiredMixin, DetailView):
     """
     A view for displaying specified reservation. GET only.
     """
-
+    raise_exception = True
+    permission_required = 'view_reservation'
     slug_field = 'uid'
     slug_url_kwarg = 'uid'
 
@@ -146,10 +160,13 @@ class ReservationDetail(ReservationBase, DetailView):
         return super(ReservationDetail, self).get_context_data(**kwargs)
 
 
-class ReservationAdd(ReservationBase, CreateView):
+class ReservationAdd(ReservationBase, PermissionRequiredMixin, CreateView):
     """
     A view for creating a new reservation.
     """
+    accept_global_perms = True
+    raise_exception = True
+    permission_required = 'SiteReservation.add_reservation'
     template_name = 'SiteReservation/reservation_add.html'
     form_class = ReservationForm
     success_url = reverse_lazy('reservation:index')
@@ -174,8 +191,14 @@ class ReservationAdd(ReservationBase, CreateView):
 
         form.instance.user = self.request.user
         self.object = form.save()
-        assign_perms('reservation', self.request.user, obj=self.object)
+        assign_perms('reservation', self.request.user, self.object,
+                     perms=['update', 'view'])
+        assign_perms('reservation', self.object.workshop.group, self.object,
+                     perms=['update', 'view'])
         return JsonResponse({'status': 0, 'redirect': self.success_url})
+
+    def get_object(self, queryset=None):
+        return None
 
     def form_invalid(self, form):
         context = self.get_context_data()
@@ -191,12 +214,13 @@ class ReservationAdd(ReservationBase, CreateView):
         return super(ReservationAdd, self).get_context_data(**kwargs)
 
 
-class ReservationUpdate(ReservationBase, UpdateView):
+class ReservationUpdate(ReservationBase, PermissionRequiredMixin, UpdateView):
     """
     A view for updating an exist reservation. Should check status before
     change, reject change if not match specified status.
     """
-
+    raise_exception = True
+    permission_required = 'update_reservation'
     template_name = 'SiteReservation/reservation_update.html'
     slug_field = 'uid'
     slug_url_kwarg = 'uid'

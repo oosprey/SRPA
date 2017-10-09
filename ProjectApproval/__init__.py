@@ -3,7 +3,7 @@
 # Author: David
 # Email: youchen.du@gmail.com
 # Created: 2017-09-07 19:34
-# Last modified: 2017-10-04 16:17
+# Last modified: 2017-10-09 14:32
 # Filename: __init__.py
 # Description:
 from django.utils.translation import ugettext_lazy as _
@@ -40,6 +40,17 @@ ACTIVITY_RANGES = (
     (ACTIVITY_RANGE_SCHOOL, _('Whole School')),
 )
 
+ACTIVITY_FORM_FREE = 0
+ACTIVITY_FORM_INVITED = 1
+ACTIVITY_FORM_RESERVATION = 2
+ACTIVITY_FORM_OTHER = 3
+ACTIVITY_FORMS = (
+    (ACTIVITY_FORM_FREE, _('Free To Join')),
+    (ACTIVITY_FORM_INVITED, _('Limited Invivation')),
+    (ACTIVITY_FORM_RESERVATION, _('Advance Reservation')),
+    (ACTIVITY_FORM_OTHER, _('Others')),
+)
+
 
 PROJECT_STATUS_CAN_EDIT = (
     PROJECT_SUBMITTED, PROJECT_EDITTING,
@@ -54,3 +65,10 @@ PROJECT_STATUS_CAN_CANCEL = (
     PROJECT_SOCIALFORM_REQUIRED)
 
 PROJECT_STATUS_CAN_EXPORT = (PROJECT_APPROVED,)
+
+PROJECT_STATUS_CAN_END_SUBMIT = (
+    PROJECT_APPROVED, PROJECT_END_SUBMITTED,
+    PROJECT_END_EDITTING)
+
+PROJECT_STATUS_CAN_FINISH = (
+    PROJECT_END_SUBMITTED, PROJECT_END_EDITTING)
