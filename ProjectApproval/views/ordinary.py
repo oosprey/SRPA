@@ -24,7 +24,7 @@ from ProjectApproval import PROJECT_SOCIALFORM_REQUIRED
 from ProjectApproval import PROJECT_CANCELLED, PROJECT_END_SUBMITTED
 from ProjectApproval import PROJECT_STATUS_CAN_END_SUBMIT
 from ProjectApproval.forms import ActivityForm, SocialInvitationForm
-from ProjectApproval.models import Project
+from ProjectApproval.models import Project, Budget
 from const.models import Workshop, FeedBack
 from authentication.models import UserInfo
 from authentication import USER_IDENTITIES
@@ -76,8 +76,6 @@ class ProjectDetail(ProjectBase, PermissionRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         feed = FeedBack.objects.filter(
             target_uid=self.object.uid)
-        kwargs['budgets'] = [x.strip().split(' ') for x in
-                             self.object.budget.split('\n')]
         kwargs['feed'] = feed
         return super(ProjectDetail, self).get_context_data(**kwargs)
 
@@ -106,6 +104,19 @@ class ProjectAdd(ProjectBase, PermissionRequiredMixin, CreateView):
         if has_social:
             form.instance.status = PROJECT_SOCIALFORM_REQUIRED
         self.object = form.save()
+        bids = [key.split('_')[1] for key in self.request.POST
+                if key.startswith('item')]
+        bids.sort()
+        # item_1 item_2
+        for bid in bids:
+            item = self.request.POST['item_' + bid]
+            amount = self.request.POST['amount_' + bid]
+            detail = self.request.POST['detail_' + bid]
+            budget = Budget(item=item,
+                            amount=amount,
+                            detail=detail,
+                            project=self.object)
+            budget.save()
         assign_perms(self.info_name, self.request.user, self.object,
                      perms=['update', 'view'])
         assign_perms(self.info_name, self.object.workshop.group, self.object,
@@ -217,6 +228,18 @@ class ProjectUpdate(ProjectBase, PermissionRequiredMixin, UpdateView):
             if social_invitation:
                 social_invitation.delete()
         self.object = form.save()
+        bids = [key.split('_')[1] for key in self.request.POST
+                if key.startswith('item')]
+        # item_1 item_2
+        for bid in bids:
+            item = self.request.POST['item_' + bid]
+            amount = self.request.POST['amount_' + bid]
+            detail = self.request.POST['detail_' + bid]
+            budget = Budget(item=item,
+                            amount=amount,
+                            detail=detail,
+                            project=self.object)
+            budget.save()
         return JsonResponse({'status': 0, 'redirect': self.success_url})
 
     def form_invalid(self, form):

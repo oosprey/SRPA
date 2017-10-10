@@ -109,11 +109,11 @@
                 <th>{% trans 'Budget Amount' %}</th>
                 <th>{% trans 'Budget Description' %}</th>
             </tr>
-        {% for item, budget, desc in budgets %}    
+            {% for budget in object.budget_set.all %} 
             <tr>
-                <th>{{item}}</th>
-                <th>{{budget}}</th>
-                <th>{{desc}}</th>
+                <th>{{budget.item}}</th>
+                <th>{{budget.amount}}</th>
+                <th>{{budget.detail}}</th>
             </tr>
         {% endfor%}
         </table>

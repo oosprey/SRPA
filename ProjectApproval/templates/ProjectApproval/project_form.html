@@ -143,17 +143,7 @@
     {% endif %}
 </div>    
 <!--line 8-->
-<div class="form-group" data-toggle="tooltip" data-placement="top" title="{% trans 'Please fill the form in format' %}">
-    <div class="col-sm-2">
-        <label class="control-label">{{form.budget.label}}:</label>
-    </div>
-    <div class="col-sm-10">
-        {{form.budget|addcls:'form-control'}}
-    </div>
-    {% if form.budget.errors %}
-        <p class="text-danger">{{form.budget.errors.as_text}}</p>
-    {% endif %}
-</div>
+<div id = "data-forms"></div>
 {% if form.errors %}
 {% for error in form.non_field_errors %}
 <p class="text-danger">{{ error }}</p>
@@ -162,6 +152,9 @@
 <div>
     <button type="submit" class="btn btn-primary btn-md">{% trans 'Submit' %}</button>
     <a href="{{ back_url }}" class="btn btn-primary btn-md">{% trans 'Back' %}</a>
+    <button type="button" class="btn btn-success btn-sm" id="add-one-term">添加预算</button>
 </div>
 </form>
 {% endblock %}
+
+<script type="text/javascript" src="{% static 'js/project.js' %}"></script>

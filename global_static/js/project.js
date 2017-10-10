@@ -1,5 +1,47 @@
 $(function () {
     $('.srpa-loader[loader-type="page"]').first().click();
+    var x = 0;
+    $("#add-one-term").click(function(){
+        x = x + 1;
+        var div = document.createElement('div');
+        div.className = "form-group budget";
+        div.dataset.toggle = "tooltip";
+        div.dataset.placement="top";
+        div.title="请按照格式填写";
+        var div2 = document.createElement('div');
+        div2.className = "col-sm-2";
+        var label = document.createElement('label');
+        label.className = "control-label";
+        label.innerHTML = '预算明细'+x+':';
+        div2.appendChild(label);
+        var div3 = document.createElement('div');
+        div3.className = "col-sm-10";
+        var input1 = document.createElement('input');
+        input1.className = "col-sm-4";
+        input1.name = "item_"+x;
+        input1.placeholder = "预算项目";
+        input1.type = "text";
+        input1.style = "color:#000000;";
+        var input2 = document.createElement('input');
+        input2.className = "col-sm-4";
+        input2.placeholder = "预算金额";
+        input2.type = "number";
+        input2.name = "amount_"+x;
+        input2.style = "color:#000000;";
+        var input3 = document.createElement('input');
+        input3.className = "col-sm-4";
+        input3.placeholder = "预算描述";
+        input3.name = "detail_"+x;
+        input3.type = "text";
+        input3.style = "color:#000000;";
+        div3.appendChild(input1);
+        div3.appendChild(input2);
+        div3.appendChild(input3);
+        div.appendChild(div2);
+        div.appendChild(div3);
+        var form = document.getElementById("data-forms");
+        form.appendChild(div);
+    });
 })
 function clean_js()
 {
