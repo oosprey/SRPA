@@ -7,11 +7,95 @@ $(function () {
         todayBtn: true,
         minView: 1,
     });
+    var x = 10000;
+    $("#add-one-term").click(function(){
+        x = x + 1;
+        $.ajax({
+            type: 'GET',
+            url: $("#add-one-term").attr('action'),
+            data: {"id":x},
+            success: function(data){
+                $("#data-forms").prepend(data.html);
+            },
+            error: function(request, data){
+                alert('与服务器通信发生错误');
+            }
+        });
+    });
+    $(document).on('click','.delete-one-term',function(){
+        $(this).parents(".budget").remove(); 
+    });
+    $("#info-form").on('submit',function(e) {
+        var has_empty = false;
+        $(".item").each(function(index,element){
+            if(has_empty)return;
+            if($(this).val() == ""){
+                has_empty = true;
+                e.preventDefault();
+            }
+        });
+        $(".amount").each(function(){
+            if(!has_empty && $(this).val() == ""){
+                has_empty = true;
+                e.preventDefault();
+            }
+        });
+        $(".detail").each(function(){
+            if(!has_empty && $(this).val() == ""){
+                has_empty = true;
+                e.preventDefault();
+            }
+        });
+        if(has_empty){
+            alert("不能为空");
+            e.preventDefault();
+        }
+    });
 })
 
 /*
 $(function () {
     $('.srpa-loader[loader-type="page"]').first().click();
+
+    var div = document.createElement('div');
+        div.className = "form-group budget";
+        div.dataset.toggle = "tooltip";
+        div.dataset.placement="top";
+        div.title="请按照格式填写";
+        var div2 = document.createElement('div');
+        div2.className = "col-sm-2";
+        var label = document.createElement('label');
+        label.className = "control-label";
+        label.innerHTML = '预算明细'+x+':';
+        div2.appendChild(label);
+        var div3 = document.createElement('div');
+        div3.className = "col-sm-10";
+        var input1 = document.createElement('input');
+        input1.className = "col-sm-4";
+        input1.name = "item_"+x;
+        input1.placeholder = "预算项目";
+        input1.type = "text";
+        input1.style = "color:#000000;";
+        var input2 = document.createElement('input');
+        input2.className = "col-sm-4";
+        input2.placeholder = "预算金额";
+        input2.type = "number";
+        input2.name = "amount_"+x;
+        input2.style = "color:#000000;";
+        var input3 = document.createElement('input');
+        input3.className = "col-sm-4";
+        input3.placeholder = "预算描述";
+        input3.name = "detail_"+x;
+        input3.type = "text";
+        input3.style = "color:#000000;";
+        div3.appendChild(input1);
+        div3.appendChild(input2);
+        div3.appendChild(input3);
+        div.appendChild(div2);
+        div.appendChild(div3);
+        var form = document.getElementById("data-forms");
+        form.appendChild(div);
+
 })
 function clean_js()
 {
