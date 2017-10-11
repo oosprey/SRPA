@@ -23,7 +23,7 @@ $(function () {
         });
     });
     $(document).on('click','.delete-one-term',function(){
-        $(this).parents("#budget").remove(); 
+        $(this).parents(".budget").remove(); 
     });
     $("#info-form").on('submit',function(e) {
         var has_empty = false;

@@ -25,8 +25,8 @@ ord_patterns = [
         name='cancel'),
     url(r'^project_end/(?P<uid>.+)$', views.ProjectEnd.as_view(),
         name='project_end'),
-    url(r'^budget/$', views.ProjectGetBudgetRow.as_view(),
-        name='budget'),
+    url(r'^budget_get/$', views.ProjectGetBudgetRow.as_view(),
+        name='budget_get'),
 ]
 
 admin_patterns = [

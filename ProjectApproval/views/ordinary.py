@@ -107,9 +107,11 @@ class ProjectAdd(ProjectBase, PermissionRequiredMixin, CreateView):
                 if key.startswith('item')]
         bids.sort()
         for bid in bids:
-            item = self.request.POST['item_' + bid]
-            amount = self.request.POST['amount_' + bid]
-            detail = self.request.POST['detail_' + bid]
+            item = self.request.POST.get('item_' + bid, None)
+            amount = self.request.POST.get('amount_' + bid, None)
+            detail = self.request.POST.get('detail_' + bid, None)
+            if not (item and amount and detail):
+                return HttpResponseForbidden
             budget = Budget(item=item,
                             amount=amount,
                             detail=detail,
@@ -214,9 +216,11 @@ class ProjectUpdate(ProjectBase, PermissionRequiredMixin, UpdateView):
                 if key.startswith('item')]
         bids.sort()
         for bid in bids:
-            item = self.request.POST['item_' + bid]
-            amount = self.request.POST['amount_' + bid]
-            detail = self.request.POST['detail_' + bid]
+            item = self.request.POST.get('item_' + bid, None)
+            amount = self.request.POST.get('amount_' + bid, None)
+            detail = self.request.POST.get('detail_' + bid, None)
+            if not (item and amount and detail):
+                return HttpResponseForbidden
             budget = Budget(item=item,
                             amount=amount,
                             detail=detail,
