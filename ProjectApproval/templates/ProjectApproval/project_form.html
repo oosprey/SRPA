@@ -1,5 +1,4 @@
 {% load filters %}
-{% load static %}
 {% load i18n %}
 {% block project_content %}
 <form id="info-form" class="form-horizontal project-form" method="POST" action="{{ form_post_url }}">
@@ -143,7 +142,27 @@
     {% endif %}
 </div>    
 <!--line 8-->
-<div id = "data-forms"></div>
+<div class="form-group">
+    <div class="col-sm-2">
+            <label class="control-label" name="label">预算明细:</label>
+    </div>
+    <div class="col-sm-10" id = "data-forms">
+        {% for budget in object.budget_set.all %}
+        <div class="col-sm-12">
+        <div class="col-sm-1"><label class="control-label">项目:</label></div>
+        <div class="col-sm-3" data-toggle="tooltip" data-placement="top" title="请按照格式填写"><input type="text" name="item_{{id}}" value="{{budget.item}}" class="form-control item"></div>
+        <div class="col-sm-1"><label class="control-label">金额:</label></div>
+        <div class="col-sm-2" data-toggle="tooltip" data-placement="top" title="请按照格式填写"><input type="number" step="0.01"  value="{{budget.amount}}" name="amount_{{id}}" class="form-control amount"></div>
+        <div class="col-sm-1"><label class="control-label">描述:</label></div>
+        <div class="col-sm-3" data-toggle="tooltip" data-placement="top" title="请按照格式填写"><input type="text" value="{{budget.detail}}" name="detail_{{id}}" class="form-control detail"></div>
+        <div class="col-sm-1"><button type="button" class="btn btn-danger btn-default delete-one-term">删除</button></div>
+        </div>
+        {% endfor%}
+        <div>
+            <button type="button" class="btn btn-success btn-default" id="add-one-term" action="{% url 'project:ordinary:budget' %}">添加</button>
+        </div>
+    </div>
+</div>
 {% if form.errors %}
 {% for error in form.non_field_errors %}
 <p class="text-danger">{{ error }}</p>
@@ -151,10 +170,8 @@
 {% endif %}
 <div>
     <button type="submit" class="btn btn-primary btn-md">{% trans 'Submit' %}</button>
-    <a href="{{ back_url }}" class="btn btn-primary btn-md">{% trans 'Back' %}</a>
-    <button type="button" class="btn btn-success btn-sm" id="add-one-term">添加预算</button>
+    <a href="javascript:history.go(-1)" class="btn btn-primary btn-md">{% trans 'Back' %}</a>
+    
 </div>
 </form>
 {% endblock %}
-
-<script type="text/javascript" src="{% static 'js/project.js' %}"></script>

@@ -1,9 +1,57 @@
-$(function () {
-    $('.srpa-loader[loader-type="page"]').first().click();
+$(function () {    
+    $('[data-toggle="tooltip"]').tooltip();
+    $('.form_datetime_hour').datetimepicker({
+        format: 'yyyy-mm-dd hh:00:00',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: true,
+        minView: 1,
+    });
     var x = 0;
     $("#add-one-term").click(function(){
         x = x + 1;
-        var div = document.createElement('div');
+        $.ajax({
+            type: 'GET',
+            url: $("#add-one-term").attr('action'),
+            data: {"id":x},
+            success: function(data){
+                $("#data-forms").prepend(data.html);
+            },
+            error: function(request, data){
+                alert('与服务器通信发生错误');
+            }
+        });
+    });
+    $(document).on('click','.delete-one-term',function(){
+        $(this).parent().parent().remove(); 
+    });
+    $("#info-form").on('submit',function(e) {
+        $(".item").each(function(index,element){
+            if($(this).val() == ""){
+                alert("项目不能为空");
+                e.preventDefault();
+            }
+        });
+        $(".amount").each(function(){
+            if($(this).val() == ""){
+                alert("金额不能为空");
+                e.preventDefault();
+            }
+        });
+        $(".detail").each(function(){
+            if($(this).val() == ""){
+                alert("描述不能为空");
+                e.preventDefault();
+            }
+        });
+    });
+})
+
+/*
+$(function () {
+    $('.srpa-loader[loader-type="page"]').first().click();
+
+    var div = document.createElement('div');
         div.className = "form-group budget";
         div.dataset.toggle = "tooltip";
         div.dataset.placement="top";
@@ -41,7 +89,7 @@ $(function () {
         div.appendChild(div3);
         var form = document.getElementById("data-forms");
         form.appendChild(div);
-    });
+
 })
 function clean_js()
 {
@@ -112,3 +160,4 @@ function init_js()
         });
     });
 }
+*/
