@@ -207,10 +207,12 @@ class ProjectUpdate(ProjectBase, PermissionRequiredMixin, UpdateView):
             if social_invitation:
                 social_invitation.delete()
         self.object = form.save()
+        project = Project.objects.get(uid=self.object.uid)
         for oldbudget in project.budget_set.all():
             oldbudget.delete()
         bids = [key.split('_')[1] for key in self.request.POST
                 if key.startswith('item')]
+        bids.sort()
         for bid in bids:
             item = self.request.POST['item_' + bid]
             amount = self.request.POST['amount_' + bid]
@@ -293,13 +295,13 @@ class ProjectEnd(ProjectBase, PermissionRequiredMixin, UpdateView):
         return HttpResponseRedirect(success_url)
 
 
-class GetBudgetHtml(TemplateView):
+class ProjectGetBudgetRow(TemplateView):
 
     template_name = 'ProjectApproval/budget.html'
 
     def get(self, request, *args, **kwargs):
-        id = self.request.GET.get('id')
+        bid = self.request.GET.get('id')
         context = self.get_context_data()
-        context['id'] = str(id)
+        context['id'] = str(bid)
         html = render_to_string(self.template_name, context=context)
         return JsonResponse({'html': html})

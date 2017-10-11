@@ -7,7 +7,7 @@ $(function () {
         todayBtn: true,
         minView: 1,
     });
-    var x = 0;
+    var x = 10000;
     $("#add-one-term").click(function(){
         x = x + 1;
         $.ajax({
@@ -23,27 +23,33 @@ $(function () {
         });
     });
     $(document).on('click','.delete-one-term',function(){
-        $(this).parent().parent().remove(); 
+        $(this).parents("#budget").remove(); 
     });
     $("#info-form").on('submit',function(e) {
+        var has_empty = false;
         $(".item").each(function(index,element){
+            if(has_empty)return;
             if($(this).val() == ""){
-                alert("项目不能为空");
+                has_empty = true;
                 e.preventDefault();
             }
         });
         $(".amount").each(function(){
-            if($(this).val() == ""){
-                alert("金额不能为空");
+            if(!has_empty && $(this).val() == ""){
+                has_empty = true;
                 e.preventDefault();
             }
         });
         $(".detail").each(function(){
-            if($(this).val() == ""){
-                alert("描述不能为空");
+            if(!has_empty && $(this).val() == ""){
+                has_empty = true;
                 e.preventDefault();
             }
         });
+        if(has_empty){
+            alert("不能为空");
+            e.preventDefault();
+        }
     });
 })
 
