@@ -40,12 +40,6 @@ $(function () {
                 e.preventDefault();
             }
         });
-        $(".detail").each(function(){
-            if(!has_empty && $(this).val() == ""){
-                has_empty = true;
-                e.preventDefault();
-            }
-        });
         if(has_empty){
             alert("不能为空");
             e.preventDefault();
