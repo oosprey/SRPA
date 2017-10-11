@@ -111,7 +111,7 @@ class ProjectAdd(ProjectBase, PermissionRequiredMixin, CreateView):
             amount = self.request.POST.get('amount_' + bid, None)
             detail = self.request.POST.get('detail_' + bid, None)
             if not (item and amount and detail):
-                return HttpResponseForbidden
+                return HttpResponseForbidden()
             budget = Budget(item=item,
                             amount=amount,
                             detail=detail,
@@ -220,7 +220,7 @@ class ProjectUpdate(ProjectBase, PermissionRequiredMixin, UpdateView):
             amount = self.request.POST.get('amount_' + bid, None)
             detail = self.request.POST.get('detail_' + bid, None)
             if not (item and amount and detail):
-                return HttpResponseForbidden
+                return HttpResponseForbidden()
             budget = Budget(item=item,
                             amount=amount,
                             detail=detail,
